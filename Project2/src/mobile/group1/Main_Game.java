@@ -5,12 +5,14 @@ import java.text.SimpleDateFormat;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 public class Main_Game extends Activity {
@@ -19,12 +21,15 @@ public class Main_Game extends Activity {
 	public static final int MEDIA_TYPE_IMAGE = 1;
 	public static Uri fileUri;
 	Intent picIntent;
+	ImageView mainimage;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.main_game);
+	    
+	    mainimage = (ImageView) findViewById(R.id.mainImage);
 	    // create Intent to take a picture and return control to the calling application
 	    picIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
@@ -63,8 +68,9 @@ public static File getOutputMediaFile(int type){
     String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new java.util.Date());
     File mediaFile;
     if (type == MEDIA_TYPE_IMAGE){
-        mediaFile = new File(mediaStorageDir.getPath() + File.separator +
-        "IMG_"+ timeStamp + ".jpg");
+        mediaFile = new File(mediaStorageDir.getAbsolutePath()
+        		+ File.separator +
+        "IMG_"+ timeStamp + ".png");
     } else {
         return null;
     }
@@ -76,8 +82,8 @@ public void onActivityResult(int requestCode, int resultCode, Intent data) {
     if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
         if (resultCode == RESULT_OK) {
             // Image captured and saved to fileUri specified in the Intent
-            Toast.makeText(this, "Image saved to:\n" +
-                     fileUri.toString(), Toast.LENGTH_LONG).show();
+            Toast.makeText(this,fileUri.toString(), Toast.LENGTH_LONG).show();
+            mainimage.setImageURI(fileUri);
         } else if (resultCode == RESULT_CANCELED) {
         	Toast.makeText(getApplicationContext(), "Picture taken canceled by user", Toast.LENGTH_LONG).show();
             // User cancelled the image capture
@@ -86,6 +92,25 @@ public void onActivityResult(int requestCode, int resultCode, Intent data) {
             // Image capture failed, advise user
         }
     }
+}
+@Override
+public void onConfigurationChanged(Configuration newConfig) {
+	// TODO Auto-generated method stub
+	super.onConfigurationChanged(newConfig);
+	if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+		//mainimage.setImageURI(fileUri);
+		Toast.makeText(this, "landscape", Toast.LENGTH_SHORT).show();
+		}
+		else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT)
+		{
+			Toast.makeText(this, "portrait", Toast.LENGTH_SHORT).show();
+			//mainimage.setImageURI(fileUri);
+		}
+}
+@Override
+public Object onRetainNonConfigurationInstance() {
+	// TODO Auto-generated method stub
+	return super.onRetainNonConfigurationInstance();
 }
 
 }

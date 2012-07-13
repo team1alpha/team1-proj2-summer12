@@ -26,7 +26,9 @@
             </intent-filter>
         </activity>
         <activity android:name="CreateNewActivity"></activity>
-        <activity android:name="Main_Game">
+        <activity 
+            android:name="Main_Game"
+            android:configChanges="orientation|keyboardHidden" >
         </activity>
     </application>
 
