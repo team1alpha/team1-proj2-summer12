@@ -5,12 +5,35 @@ public class User
 	private String username;
 	private String password;
 	private String current_game;
-	private int    score;
-	private int[]  found_items;
+	private String score;
+	private byte[] found_items;
 	private String placeholder1;
 	private String placeholder2;
-	private int    id;
 	
+	public User()
+	{
+		
+	}
+	
+	public User(String username, 
+				String password, 
+				String current_game, 
+				String score, 
+				String found_items, 
+				String placeholder1, 
+				String placeholder2)
+	{
+		this.username     = username;
+		this.password     = password;
+		this.current_game = current_game;
+		this.score        = score;
+		this.found_items  = found_items.getBytes();
+		this.placeholder1 = placeholder1;
+		this.placeholder2 = placeholder2;
+	}
+			
+			
+			
 	public String getUsername() {
 		return username;
 	}
@@ -35,10 +58,10 @@ public class User
 	public void setScore(int score) {
 		this.score = score;
 	}
-	public int[] getFound_items() {
+	public byte[] getFound_items() {
 		return found_items;
 	}
-	public void setFound_items(int[] found_items) {
+	public void setFound_items(byte[] found_items) {
 		this.found_items = found_items;
 	}
 	public String getPlaceholder1() {
@@ -53,12 +76,4 @@ public class User
 	public void setPlaceholder2(String placeholder2) {
 		this.placeholder2 = placeholder2;
 	}
-
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-
 }
