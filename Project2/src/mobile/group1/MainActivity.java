@@ -1,6 +1,5 @@
 package mobile.group1;
 
-import mobile.group1.DB.ScavengerDB;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,6 +28,8 @@ public class MainActivity extends Activity {
         getMenuInflater().inflate(R.menu.activity_main, menu);
         return true;
     }
+    
+    
     
     public void createNewHandler(View v){
     	
