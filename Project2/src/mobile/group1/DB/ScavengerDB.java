@@ -21,7 +21,7 @@ public class ScavengerDB
 	
 	public User getUser(String username)
 	{
-		User user;
+		
 
 		GetRowData getRowData = new GetRowData(TABLE_NAME);
 		getRowData.whereEqualsTo("test", username);
@@ -45,7 +45,7 @@ public class ScavengerDB
 				if(result.size() > 0)
 				{
 					HashMap<String, Object[]> item = result.get(0);
-					user = new User((String)item.get("username")[0],
+					User user = new User((String)item.get("username")[0],
 									(String)item.get("password")[0],
 									(String)item.get("game")[0],
 									(String)item.get("score")[0],

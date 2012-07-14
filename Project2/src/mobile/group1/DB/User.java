@@ -52,10 +52,10 @@ public class User
 	public void setCurrent_game(String current_game) {
 		this.current_game = current_game;
 	}
-	public int getScore() {
+	public String getScore() {
 		return score;
 	}
-	public void setScore(int score) {
+	public void setScore(String score) {
 		this.score = score;
 	}
 	public byte[] getFound_items() {
