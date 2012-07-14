@@ -14,6 +14,13 @@ import android.view.View;
 
 public class MainActivity extends Activity 
 {
+	///////////////////////////////////////////////////////////////////////////
+	// debug support
+	///////////////////////////////////////////////////////////////////////////
+	static public void debug(String msg)
+	{
+		Log.i("me", msg);
+	}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,14 +45,31 @@ public class MainActivity extends Activity
 			}
 		};
 
+		debug("reading users one by one.----------------------");
 		User.RequestUser("a", userListener, userErrorListner);    
 		User.RequestUser("b", userListener, userErrorListner);    
 		User.RequestUser("c", userListener, userErrorListner);    
         
+		debug("adding new user.-------------------------------");
 		User d = new User("d", "d", "d", "d", ";");
 		d.Save(userListener, userErrorListner);
 		
-		User.RequestUser("d", userListener, userErrorListner);    
+		debug("requesting all users---------------------------");
+		User.RequestAllUsers(userListener, userErrorListner);
+		
+		debug("deleting a user---------------------------");
+		User.Delete("d", userListener, userErrorListner);
+		
+		debug("update a user---------------------------");
+		d.setPassword("F");
+		d.Save(userListener, userErrorListner);
+		
+		debug("requesting all users---------------------------");
+		User.RequestAllUsers(userListener, userErrorListner);
+		
+		debug("requesting all users---------------------------");
+		User.RequestAllUsers(userListener, userErrorListner);
+
         
         
     }

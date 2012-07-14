@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Vector;
 
 import android.util.Log;
-
+import com.mobdb.android.DeleteRowData;
 import com.mobdb.android.GetRowData;
 import com.mobdb.android.InsertRowData;
 import com.mobdb.android.MobDB;
@@ -104,6 +104,8 @@ public class User
 		insertRowData.setValue("score",        score);
 		insertRowData.setValue("found_items",  foundItems);
 		
+		User.Delete(username, null, null);
+		
 		MobDB.getInstance().execute(ScavengerDB.APP_KEY, insertRowData, null, false, 
 				
 				new MobDBResponseListener() 
@@ -182,6 +184,148 @@ public class User
 						{
 							// call it
 							successListener.onUserDBAction(user);
+						}
+					}
+					
+					@Override
+					public void mobDBErrorResponse(Integer errValue, String errMsg)
+					{
+						debug("error reading mobdb errorcode:" + String.valueOf(errValue) + " errMsg:" + errMsg);
+						
+						// if a listener was provided 
+						if(errorListener != null)
+						{
+							// call it
+							errorListener.onUserDBError(errValue, errMsg);
+						}
+					}
+
+				    @Override
+				    public void mobDBFileResponse(String fileName, byte[] fileData)
+				    {
+				    	debug("mobdb file response filename:" + fileName);
+				    	
+						// if a listener was provided 
+						if(errorListener != null)
+						{
+							// call it
+							errorListener.onUserDBError(0, "received file response when map expected.");
+						}
+				    }
+				});		
+	}
+	
+	public static void Delete(String username, final UserListener successListener, final UserErrorListener errorListener)
+	{
+		DeleteRowData deleteRowData = new DeleteRowData(TABLE_NAME);
+		deleteRowData.whereEqualsTo("username", username);
+		
+		// execute the query
+		MobDB.getInstance().execute(ScavengerDB.APP_KEY, deleteRowData, null, false,
+
+				new MobDBResponseListener()
+				{
+					// fillers
+					@Override public void mobDBSuccessResponse()       { debug("successfully queried mobdb");    }
+					@Override public void mobDBResponse(String jsonObj){ debug("mobdb json response:" + jsonObj);}
+			
+					 // One of the methods below will get called as a callback when the query is 
+					 // complete. mobDBResponse on success or mobDBErrorResponse on failure.
+					 // These call the passed in handlers.
+					@Override
+					public void mobDBResponse(Vector<HashMap<String, Object[]>> result)
+					{
+						debug("mobdb db response count:" + String.valueOf(result.size()));
+						
+						// get the first item. As we are only allowing unique usernames
+						// getting here we should have strictly one records returned.
+						HashMap<String, Object[]> item = result.get(0);
+						
+						// get the various fields from the map returned by query
+						// I dont understand why each value of the key:value pair is an 
+						// array of objects instead of just a single object.
+						User user = new User(item.get("username")[0].toString(), 
+											 item.get("password")[0].toString(), 
+											 item.get("current_game")[0].toString(),
+											 item.get("score")[0].toString(),
+											 item.get("found_items")[0].toString());
+						
+						// if a listener was provided 
+						if(successListener != null)
+						{
+							// call it
+							successListener.onUserDBAction(user);
+						}
+					}
+					
+					@Override
+					public void mobDBErrorResponse(Integer errValue, String errMsg)
+					{
+						debug("error reading mobdb errorcode:" + String.valueOf(errValue) + " errMsg:" + errMsg);
+						
+						// if a listener was provided 
+						if(errorListener != null)
+						{
+							// call it
+							errorListener.onUserDBError(errValue, errMsg);
+						}
+					}
+
+				    @Override
+				    public void mobDBFileResponse(String fileName, byte[] fileData)
+				    {
+				    	debug("mobdb file response filename:" + fileName);
+				    	
+						// if a listener was provided 
+						if(errorListener != null)
+						{
+							// call it
+							errorListener.onUserDBError(0, "received file response when map expected.");
+						}
+				    }
+				});		
+	}
+
+	
+	public static void RequestAllUsers(final UserListener successListener, final UserErrorListener errorListener)
+	{
+		// SELECT * FROM TABLENAME
+		GetRowData getRowData = new GetRowData(TABLE_NAME);
+
+		// execute the query
+		MobDB.getInstance().execute(ScavengerDB.APP_KEY, getRowData, null, false,
+				
+				new MobDBResponseListener()
+				{
+					// fillers
+					@Override public void mobDBSuccessResponse()       { debug("successfully queried mobdb");    }
+					@Override public void mobDBResponse(String jsonObj){ debug("mobdb json response:" + jsonObj);}
+			
+					 // One of the methods below will get called as a callback when the query is 
+					 // complete. mobDBResponse on success or mobDBErrorResponse on failure.
+					 // These call the passed in handlers.
+					@Override
+					public void mobDBResponse(Vector<HashMap<String, Object[]>> result)
+					{
+						debug("mobdb db response count:" + String.valueOf(result.size()));
+						
+						for(HashMap<String,Object[]>item : result)
+						{
+							// get the various fields from the map returned by query
+							// I dont understand why each value of the key:value pair is an 
+							// array of objects instead of just a single object.
+							User user = new User(item.get("username")[0].toString(), 
+												 item.get("password")[0].toString(), 
+												 item.get("current_game")[0].toString(),
+												 item.get("score")[0].toString(),
+												 item.get("found_items")[0].toString());
+							
+							// if a listener was provided 
+							if(successListener != null)
+							{
+								// call it
+								successListener.onUserDBAction(user);
+							}							
 						}
 					}
 					
