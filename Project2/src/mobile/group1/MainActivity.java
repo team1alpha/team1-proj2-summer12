@@ -13,7 +13,9 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
-        
+        // test code
+        ScavengerDB db = new ScavengerDB();
+        db.getUser("test");
         
         
         
