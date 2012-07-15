@@ -1,5 +1,6 @@
 package mobile.group1;
 
+import mobile.group1.DB.GameRecord;
 import mobile.group1.DB.MobDBRecord.ResponseListener;
 import mobile.group1.DB.MobDBTransaction;
 import mobile.group1.DB.MobDBTransaction.QueryType;
@@ -59,11 +60,53 @@ public class MainActivity extends Activity {
 				}
 			}
 		}; 
+		
+		ResponseListener gameListener = new ResponseListener()
+		{
 
-		UserRecord b = new UserRecord("b", responseListener);
-		UserRecord a = new UserRecord("a", responseListener);
-		b.Get();
-		b.GetALL();
+			@Override
+			public void onResponse(Bundle bundle)
+			{
+				if(bundle != null)
+				{
+					QueryType queryType = QueryType.values()[bundle.getInt(MobDBTransaction.QUERY_TYPE)]; 
+					
+					if(bundle.getBoolean(MobDBTransaction.RESULT_CODE) == true)
+					{
+						if(bundle.containsKey(GameRecord.GAME_NAMES))
+						{
+							debug("----------------------------");
+							debug("All games");
+							for(String game: bundle.getStringArray(GameRecord.GAME_NAMES))
+							{
+								debug("games:" + game);
+							}
+						}
+						else
+						{
+							debug(queryType.toString() + " successfull for game ->" + bundle.getString(GameRecord.GAME_INFO));
+						}
+					}
+					else
+					{
+						debug(queryType.toString() + " failure for user ->" + bundle.getString(GameRecord.GAME_INFO));
+					}
+
+
+				}
+			}
+			
+		};
+
+//		UserRecord b = new UserRecord("b", responseListener);
+//		UserRecord a = new UserRecord("a", responseListener);
+//		b.Get();
+//		b.GetALL();
+//		String[] x = {"a", "b"};
+//		String[] y = {"x", "y"};
+//		GameRecord c = new GameRecord("c", gameListener);
+//		c.Get();
+//		c.GetALL();
     }
 
     @Override
