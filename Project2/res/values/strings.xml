@@ -10,7 +10,16 @@
     <string name="picBT">picBT</string>
     <string name="titleofgame">Game in Progress</string>
     <string name="itemName">Item Name</string>
-    <string name="itemdescription">Item Description</string>
+    <string name="itemdescription">Item Worth</string>
     <string name="takepic">Take Picture</string>
+    <string name="points">Points</string>
+    <string name="uploadpic">Upload</string>
+    <string name="moreinfo">More Info</string>
+    <string name="space">-</string>
+    <string name="flag">Flag</string>
+    <string name="createnewgame">Create New Game</string>
+    <string name="exit">Exit</string>
+    <string name="gameinprogress">Game in Progress</string>
+    <string name="profilename">Profile Name</string>
 
 </resources>

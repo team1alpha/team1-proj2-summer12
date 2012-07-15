@@ -30,6 +30,8 @@
             android:name="Main_Game"
             android:configChanges="orientation|keyboardHidden" >
         </activity>
+        <activity android:name="Flag_System"></activity>
+        <activity android:name="Profile"></activity>
     </application>
 
 </manifest>
