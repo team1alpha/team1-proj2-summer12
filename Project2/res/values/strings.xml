@@ -21,5 +21,6 @@
     <string name="exit">Exit</string>
     <string name="gameinprogress">Game in Progress</string>
     <string name="profilename">Profile Name</string>
+    <string name="newgame">New Game</string>
 
 </resources>
