@@ -1,11 +1,15 @@
 package mobile.group1;
 
-import mobile.group1.DB.ScavengerDB;
-import mobile.group1.DB.User;
-import mobile.group1.DB.User.UserErrorListener;
-import mobile.group1.DB.User.UserListener;
-import android.app.Activity;
 
+import javax.xml.transform.ErrorListener;
+import javax.xml.transform.TransformerException;
+
+import mobile.group1.DB.MobDBRecord.ResponseListener;
+import mobile.group1.DB.MobDBTransaction;
+import mobile.group1.DB.MobDBTransaction.QueryType;
+import mobile.group1.DB.UserRecord;
+
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,52 +30,46 @@ public class MainActivity extends Activity
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
-        UserListener userListener = new UserListener()
+
+		ResponseListener responseListener = new ResponseListener()
 		{
 			@Override
-			public void onUserDBAction(User user)
+			public void onResponse(Bundle bundle)
 			{
-				Log.i("me", "user listener:" + user.toString());
-			}
-		};
-		
-		UserErrorListener userErrorListner = new UserErrorListener()
-		{
-			@Override
-			public void onUserDBError(Integer errValue, String errMsg)
-			{
-				Log.i("me", "user error listener:" + errMsg + ":" + String.valueOf(errValue));
-			}
-		};
+				if(bundle != null)
+				{
+					QueryType queryType = QueryType.values()[bundle.getInt(MobDBTransaction.QUERY_TYPE)]; 
+					
+					if(bundle.getBoolean(MobDBTransaction.RESULT_CODE) == true)
+					{
+						if(bundle.containsKey(UserRecord.USER_NAMES))
+						{
+							debug("----------------------------");
+							debug("All users");
+							for(String user: bundle.getStringArray(UserRecord.USER_NAMES))
+							{
+								debug("user:" + user);
+							}
+						}
+						else
+						{
+							debug(queryType.toString() + " successfull for user ->" + bundle.getString(UserRecord.USER_INFO));
+						}
+					}
+					else
+					{
+						debug(queryType.toString() + " failure for user ->" + bundle.getString(UserRecord.USER_INFO));
+					}
 
-		debug("reading users one by one.----------------------");
-		User.RequestUser("a", userListener, userErrorListner);    
-		User.RequestUser("b", userListener, userErrorListner);    
-		User.RequestUser("c", userListener, userErrorListner);    
-        
-		debug("adding new user.-------------------------------");
-		User d = new User("d", "d", "d", "d", ";");
-		d.Save(userListener, userErrorListner);
-		
-		debug("requesting all users---------------------------");
-		User.RequestAllUsers(userListener, userErrorListner);
-		
-		debug("deleting a user---------------------------");
-		User.Delete("d", userListener, userErrorListner);
-		
-		debug("update a user---------------------------");
-		d.setPassword("F");
-		d.Save(userListener, userErrorListner);
-		
-		debug("requesting all users---------------------------");
-		User.RequestAllUsers(userListener, userErrorListner);
-		
-		debug("requesting all users---------------------------");
-		User.RequestAllUsers(userListener, userErrorListner);
 
-        
-        
+				}
+			}
+		}; 
+
+		UserRecord b = new UserRecord("b", responseListener);
+		UserRecord a = new UserRecord("a", responseListener);
+		b.Get();
+		b.GetALL();
     }
 
     @Override
