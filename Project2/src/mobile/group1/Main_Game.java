@@ -26,6 +26,12 @@ public class Main_Game extends Activity {
 	ImageView mainimage;
 	TextView itemname;
 	TextView itemscore;
+	boolean item1selected = false;
+	boolean item2selected = false;
+	boolean item3selected = false;
+	boolean item4selected = false;
+	boolean item5selected = false;
+	
 
 	/** Called when the activity is first created. */
 	@Override
@@ -66,6 +72,7 @@ public class Main_Game extends Activity {
 	public void imagebt1(View V) {
 		itemname.setText("Item 1");
 		itemscore.setText("10");
+		item1selected = true;
 		// image is updated by button image
 		// mainimage.setImageURI(fileUri);
 
@@ -74,6 +81,7 @@ public class Main_Game extends Activity {
 	public void imagebt2(View V) {
 		itemname.setText("Item 2");
 		itemscore.setText("20");
+		item2selected = true;
 		// image is updated by button image
 		// mainimage.setImageURI(fileUri);
 	}
@@ -81,6 +89,7 @@ public class Main_Game extends Activity {
 	public void imagebt3(View V) {
 		itemname.setText("Item 3");
 		itemscore.setText("30");
+		item3selected = true;
 		// image is updated by button image
 		// mainimage.setImageURI(fileUri);
 	}
@@ -88,6 +97,7 @@ public class Main_Game extends Activity {
 	public void imagebt4(View V) {
 		itemname.setText("Item 4");
 		itemscore.setText("40");
+		item4selected = true;
 		// image is updated by button image
 		// mainimage.setImageURI(fileUri);
 	}
@@ -95,6 +105,7 @@ public class Main_Game extends Activity {
 	public void imagebt5(View V) {
 		itemname.setText("Item 5");
 		itemscore.setText("500");
+		item5selected = true;
 		// image is updated by button image
 		// mainimage.setImageURI(fileUri);
 
@@ -156,6 +167,24 @@ public class Main_Game extends Activity {
 				// Image capture failed, advise user
 			}
 		}
+	}
+	public void checksitemselected(){
+		if (item1selected){
+			item1selected = true;
+		}
+		else if (item2selected){
+			item2selected = true;
+		}
+		else if (item3selected){
+			item3selected = true;
+		}
+		else if (item4selected){
+			item4selected = true;
+		}
+		else if (item5selected){
+			item5selected = true;
+		}
+		
 	}
 
 }

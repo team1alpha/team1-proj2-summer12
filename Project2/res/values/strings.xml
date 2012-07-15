@@ -22,5 +22,11 @@
     <string name="gameinprogress">Game in Progress</string>
     <string name="profilename">Profile Name</string>
     <string name="newgame">New Game</string>
+    <string name="entername">Enter Item Name</string>
+    <string name="enterpoints">Enter Points</string>
+    <string name="submit">Submit</string>
+    <string name="cancel">Cancel</string>
+    <string name="newgametitle">Game Title</string>
+    <string name="entergametitle">Enter Game Title</string>
 
 </resources>
