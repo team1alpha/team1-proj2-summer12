@@ -9,9 +9,9 @@
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
-
+
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
@@ -35,30 +35,49 @@
                 android:layout_height="wrap_content" >
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:orientation="horizontal" >
-
+
                     <ImageButton
                         android:id="@+id/imageButton1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/somepic"
-                        android:src="@drawable/gummiboot" />
-
+                        android:onClick="imagebt1"
+                        android:src="@drawable/one" />
+
                     <ImageButton
-                        android:id="@+id/imageButton5"
+                        android:id="@+id/imageButton2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/somepic"
-                        android:src="@drawable/gummiboot" />
-
+                        android:onClick="imagebt2"
+                        android:src="@drawable/two" />
+
                     <ImageButton
                         android:id="@+id/imageButton3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/somepic"
-                        android:src="@drawable/gummiboot" />
+                        android:onClick="imagebt3"
+                        android:src="@drawable/three" />
+
+                    <ImageButton
+                        android:id="@+id/imageButton4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/somepic"
+                        android:onClick="imagebt4"
+                        android:src="@drawable/four" />
+
+                    <ImageButton
+                        android:id="@+id/imageButton5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/somepic"
+                        android:onClick="imagebt5"
+                        android:src="@drawable/five" />
 
                 </LinearLayout>
 
@@ -70,19 +89,59 @@
                 android:layout_height="wrap_content"
                 android:text="@string/itemName"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
 
-            <TextView
-                android:id="@+id/itemDescription"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/itemdescription" />
+                <TextView
+                    android:id="@+id/itemDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/itemdescription" />
+
+                <TextView
+                    android:id="@+id/space"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/space"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <TextView
+                    android:id="@+id/pointsworth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/points"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
 
-            <Button
-                android:id="@+id/takepic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="takePicture"
-                android:text="@string/takepic" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <Button
+                    android:id="@+id/takepicBT"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="takePicture"
+                    android:text="@string/takepic" />
+
+                <Button
+                    android:id="@+id/uploadBT"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="upload"
+                    android:text="@string/uploadpic" />
+
+                <Button
+                    android:id="@+id/moreinfoBT"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="moreinfo"
+                    android:text="@string/moreinfo" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
