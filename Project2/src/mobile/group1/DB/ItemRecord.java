@@ -52,6 +52,19 @@ public class ItemRecord extends MobDBRecord
 	{
 		super(listener);
 		setName(name);
+		setDescription("");
+		setImage(BitmapFactory.decodeByteArray(null, 0, 0));
+		setFoundBy("");
+		setImageName("");
+	}
+	
+	public ItemRecord(String name, String description, String foundBy, Bitmap bitmap, ResponseListener listener)
+	{
+		super(listener);
+		setName(name);
+		setDescription(description);
+		setFoundBy(foundBy);
+		setImage(bitmap);
 	}
 
 	@Override
@@ -87,8 +100,14 @@ public class ItemRecord extends MobDBRecord
 	@Override
 	protected InsertRowData Inserter()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		InsertRowData insertRowData = new InsertRowData(TableName());
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		getImage().compress(Bitmap.CompressFormat.PNG, 100, stream);
+		insertRowData.setValue("image", "picture.bmp", stream.toByteArray());
+		insertRowData.setValue("name", getName());
+		insertRowData.setValue("des", getDescription());
+		insertRowData.setValue("foundby", getFoundBy());
+		return insertRowData;
 	}
 	
 	@Override
