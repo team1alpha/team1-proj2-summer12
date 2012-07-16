@@ -57,7 +57,7 @@ public class Main_Game extends Activity {
 
 	public void takePicture(View v) {
 	
-		startActivityForResult(picIntent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+		startActivityForResult(picIntent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE); 
 	}
 
 	public void upload(View v) {
@@ -124,6 +124,7 @@ public class Main_Game extends Activity {
 
 	public static Uri getOutputMediaFileUri(int type) {
 		return Uri.fromFile(getOutputMediaFile(type));
+		// Uri to get the image of the sd card after pic is taken
 	}
 
 	public static File getOutputMediaFile(int type) {
