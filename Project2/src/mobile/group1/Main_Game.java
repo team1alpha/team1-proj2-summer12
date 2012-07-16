@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -50,6 +51,7 @@ public class Main_Game extends Activity {
 															// save the image
 		picIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image
 																// file name
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
 	}
 
