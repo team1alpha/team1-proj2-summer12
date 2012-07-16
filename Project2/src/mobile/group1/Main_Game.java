@@ -75,6 +75,7 @@ public class Main_Game extends Activity {
 		item1selected = true;
 		// image is updated by button image
 		// mainimage.setImageURI(fileUri);
+		// information of item is downloaded
 
 	}
 
@@ -84,6 +85,8 @@ public class Main_Game extends Activity {
 		item2selected = true;
 		// image is updated by button image
 		// mainimage.setImageURI(fileUri);
+		// information of item is downloaded
+
 	}
 
 	public void imagebt3(View V) {
@@ -92,6 +95,8 @@ public class Main_Game extends Activity {
 		item3selected = true;
 		// image is updated by button image
 		// mainimage.setImageURI(fileUri);
+		// information of item is downloaded
+
 	}
 
 	public void imagebt4(View V) {
@@ -100,6 +105,8 @@ public class Main_Game extends Activity {
 		item4selected = true;
 		// image is updated by button image
 		// mainimage.setImageURI(fileUri);
+		// information of item is downloaded
+
 	}
 
 	public void imagebt5(View V) {
@@ -108,6 +115,8 @@ public class Main_Game extends Activity {
 		item5selected = true;
 		// image is updated by button image
 		// mainimage.setImageURI(fileUri);
+		// information of item is downloaded
+
 
 	}
 

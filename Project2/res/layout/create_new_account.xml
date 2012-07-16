@@ -7,19 +7,19 @@
         android:id="@+id/tableRow1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
-
+
         <TextView
             android:id="@+id/createUsername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Username" />
-
+            android:text="@string/username" />
+
         <EditText
-            android:id="@+id/createUsernameText"
+            android:id="@+id/createUsernameTextET"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10" 
-            android:hint="username"/>
+            android:ems="10"
+            android:hint="@string/username" />
 
     </TableRow>
 
@@ -27,31 +27,31 @@
         android:id="@+id/tableRow2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
-
+
         <TextView
             android:id="@+id/createPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Password" />
-
+            android:text="@string/password" />
+
         <EditText
-            android:id="@+id/createPasswordText"
+            android:id="@+id/createPasswordTextET"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPassword" 
-            android:hint="password">
+            android:hint="@string/password"
+            android:inputType="textPassword" >
 
             <requestFocus />
         </EditText>
 
     </TableRow>
-
+
     <Button
         android:id="@+id/createNewButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create My Account"
-        android:onClick="createAccountHandler" />
+        android:onClick="createAccountHandler"
+        android:text="@string/createnewaccount" />
 
 </TableLayout>

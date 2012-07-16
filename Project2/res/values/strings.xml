@@ -29,5 +29,9 @@
     <string name="newgametitle">Game Title</string>
     <string name="entergametitle">Enter Game Title</string>
     <string name="invitefriend">Invite Friend</string>
+    <string name="createnewaccount">Create New Account</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
 
 </resources>
