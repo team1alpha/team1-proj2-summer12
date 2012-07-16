@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -50,6 +51,7 @@ public class Main_Game extends Activity {
 															// save the image
 		picIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image
 																// file name
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
 	}
 
@@ -75,6 +77,7 @@ public class Main_Game extends Activity {
 		item1selected = true;
 		// image is updated by button image
 		// mainimage.setImageURI(fileUri);
+		// information of item is downloaded
 
 	}
 
@@ -84,6 +87,8 @@ public class Main_Game extends Activity {
 		item2selected = true;
 		// image is updated by button image
 		// mainimage.setImageURI(fileUri);
+		// information of item is downloaded
+
 	}
 
 	public void imagebt3(View V) {
@@ -92,6 +97,8 @@ public class Main_Game extends Activity {
 		item3selected = true;
 		// image is updated by button image
 		// mainimage.setImageURI(fileUri);
+		// information of item is downloaded
+
 	}
 
 	public void imagebt4(View V) {
@@ -100,6 +107,8 @@ public class Main_Game extends Activity {
 		item4selected = true;
 		// image is updated by button image
 		// mainimage.setImageURI(fileUri);
+		// information of item is downloaded
+
 	}
 
 	public void imagebt5(View V) {
@@ -108,6 +117,8 @@ public class Main_Game extends Activity {
 		item5selected = true;
 		// image is updated by button image
 		// mainimage.setImageURI(fileUri);
+		// information of item is downloaded
+
 
 	}
 

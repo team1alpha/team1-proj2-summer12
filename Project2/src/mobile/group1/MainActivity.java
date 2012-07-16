@@ -160,7 +160,7 @@ public class MainActivity extends Activity {
     }
     public void login(View v){
     	
-    	Intent intent = new Intent(this, Main_Game.class);
+    	Intent intent = new Intent(this, Profile.class);
     	startActivity(intent);
     	
     	

@@ -1,28 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/regenwald"
+    android:gravity="center|top"
     android:orientation="vertical" >
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/somepic"
-        android:src="@drawable/gummiboot" />
-
+
     <TextView
-        android:id="@+id/flagTV"
+        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/invitefriend"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-
+
     <Button
-        android:id="@+id/flagBT"
+        android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="flagBT"
-        android:text="@string/flag" />
+        android:text="@string/submit" />
 
 </LinearLayout>

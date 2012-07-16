@@ -200,15 +200,22 @@
                     android:layout_height="wrap_content"
                     android:onClick="submit"
                     android:text="@string/submit" />
-
+
                 <Button
                     android:id="@+id/button1"
-                    android:layout_width="167dp"
+                    android:layout_width="170dp"
                     android:layout_height="wrap_content"
                     android:onClick="cancel"
                     android:text="@string/cancel" />
 
             </LinearLayout>
+
+            <Button
+                android:id="@+id/invite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="invite"
+                android:text="@string/invitefriend" />
 
         </LinearLayout>
     </ScrollView>

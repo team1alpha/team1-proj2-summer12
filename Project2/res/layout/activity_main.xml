@@ -1,8 +1,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
+    android:layout_height="match_parent"
+    android:background="@drawable/regenwald" >
+
     <TextView
         android:id="@+id/loginText"
         android:layout_width="wrap_content"
@@ -10,9 +11,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="18dp"
-        android:text="Login"
+        android:text="@string/login"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-
+
     <EditText
         android:id="@+id/username"
         android:layout_width="wrap_content"
@@ -21,18 +22,18 @@
         android:layout_below="@+id/loginText"
         android:layout_marginTop="20dp"
         android:ems="10"
-        android:hint="username" />
-
+        android:hint="@string/username" />
+
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/passwordET"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/username"
         android:layout_marginTop="18dp"
         android:ems="10"
-        android:hint="password" />
-
+        android:hint="@string/password" />
+
     <Button
         android:id="@+id/loginButton"
         android:layout_width="wrap_content"
@@ -40,8 +41,8 @@
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:onClick="login"
-        android:text="Login" />
-
+        android:text="@string/login" />
+
     <Button
         android:id="@+id/creatNewButton"
         android:layout_width="wrap_content"
@@ -49,7 +50,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/loginButton"
         android:layout_marginTop="38dp"
-        android:text="Create New Account"
-        android:onClick="createNewHandler" />
+        android:onClick="createNewHandler"
+        android:text="@string/createnewaccount" />
 
 </RelativeLayout>
