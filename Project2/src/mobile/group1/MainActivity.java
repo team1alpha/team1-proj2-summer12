@@ -15,9 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	// /////////////////////////////////////////////////////////////////////////
@@ -28,19 +26,11 @@ public class MainActivity extends Activity {
 	}
 	
 	ImageView imageView;
-	EditText username;
-	EditText password;
-	String user;
-	String pass;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
-        username = (EditText) findViewById(R.id.username);
-        password = (EditText) findViewById(R.id.passwordET);
-        
 
 		ResponseListener responseListener = new ResponseListener()
 		{
@@ -170,16 +160,9 @@ public class MainActivity extends Activity {
     }
     public void login(View v){
     	
-    	user = username.getText().toString().trim();
-    	pass = password.getText().toString().trim();
+    	Intent intent = new Intent(this, Profile.class);
+    	startActivity(intent);
     	
-    	if (user != null && pass != null){
-			//Perform check if username is in used
-			//insert into database
-			Toast.makeText(getApplicationContext(), user +" "+ pass, Toast.LENGTH_SHORT).show();
-			Intent intent = new Intent(this, Profile.class);
-	    	startActivity(intent);
-		}	
     	
     }
 }
