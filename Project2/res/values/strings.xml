@@ -28,5 +28,6 @@
     <string name="cancel">Cancel</string>
     <string name="newgametitle">Game Title</string>
     <string name="entergametitle">Enter Game Title</string>
+    <string name="invitefriend">Invite Friend</string>
 
 </resources>

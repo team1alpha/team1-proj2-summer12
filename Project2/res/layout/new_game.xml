@@ -212,5 +212,12 @@
 
         </LinearLayout>
     </ScrollView>
+
+    <Button
+        android:id="@+id/invite"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="invite"
+        android:text="@string/invitefriend" />
 
 </LinearLayout>
