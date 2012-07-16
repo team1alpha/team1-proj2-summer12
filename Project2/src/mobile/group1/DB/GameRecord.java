@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Vector;
 import android.os.Bundle;
 import com.mobdb.android.InsertRowData;
+import com.mobdb.android.GetFile;
 
 public class GameRecord extends MobDBRecord
 {
@@ -130,6 +131,13 @@ public class GameRecord extends MobDBRecord
 
 		return insertRowData;
 	}
+	
+	// no files in this table ignore
+	@Override
+	protected GetFile FileGetter()
+	{
+		return null;
+	}
 
 	// tell the parent class what work to do prior to handing data back to the 
 	// client code for this class.
@@ -197,6 +205,12 @@ public class GameRecord extends MobDBRecord
 				bundle.putString(GAME_INFO, toString());
 			}
 			break;
+			
+			///////////////////////////////////////////////////////////////////////
+			// any other case ignore
+			///////////////////////////////////////////////////////////////////////
+			default:
+				
 		}
 		
 		return bundle;

@@ -6,6 +6,7 @@ import mobile.group1.DB.MobDBTransaction.QueryType;
 import com.mobdb.android.DeleteRowData;
 import com.mobdb.android.GetRowData;
 import com.mobdb.android.InsertRowData;
+import com.mobdb.android.GetFile;
 
 import android.os.Bundle;
 
@@ -16,7 +17,7 @@ public abstract class MobDBRecord
 	///////////////////////////////////////////////////////////////////////////
 	
 	// indicates the type of request
-	public enum RecordQueryType { Get, GetAll, Save, Delete; }
+	public enum RecordQueryType { Get, GetAll, Save, Delete, File}
 
 	///////////////////////////////////////////////////////////////////////////
 	// Listener Definitions
@@ -40,6 +41,7 @@ public abstract class MobDBRecord
 	protected abstract Bundle        PrepareResponse(RecordQueryType queryType, Bundle bundle);
 	protected abstract String        KeyField();
 	protected abstract String        KeyValue();
+	protected abstract GetFile       FileGetter();
 	
 	///////////////////////////////////////////////////////////////////////////	
 	// private var
@@ -100,6 +102,19 @@ public abstract class MobDBRecord
 
 				listener.onResponse(PrepareResponse(RecordQueryType.Save, bundle));
 			};
+		});
+	}
+	
+	// Gets a file
+	public void GetFile()
+	{
+		new MobDBTransaction(AppKey(), QueryType.File, FileGetter(), new MobDBTransactionListener()
+		{
+			@Override
+			public void onTransactionFinished(Bundle bundle)
+			{
+				listener.onResponse(PrepareResponse(RecordQueryType.File, bundle));
+			}
 		});
 	}
 	

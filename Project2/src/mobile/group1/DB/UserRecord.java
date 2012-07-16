@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Vector;
 import android.os.Bundle;
 import com.mobdb.android.InsertRowData;
+import com.mobdb.android.GetFile;
 
 public class UserRecord extends MobDBRecord
 {
@@ -105,6 +106,13 @@ public class UserRecord extends MobDBRecord
 		return insertRowData;
 	}
 
+	// no files in this table
+	@Override
+	protected GetFile FileGetter()
+	{
+		return null;
+	}
+
 	// tell the parent class what work to do prior to handing data back to the 
 	// client code for this class.
 	@Override
@@ -176,5 +184,4 @@ public class UserRecord extends MobDBRecord
 		
 		return bundle;
 	}
-
 }

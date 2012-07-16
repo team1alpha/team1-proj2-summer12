@@ -1,6 +1,7 @@
 package mobile.group1;
 
 import mobile.group1.DB.GameRecord;
+import mobile.group1.DB.ItemRecord;
 import mobile.group1.DB.MobDBRecord.ResponseListener;
 import mobile.group1.DB.MobDBTransaction;
 import mobile.group1.DB.MobDBTransaction.QueryType;
@@ -8,10 +9,13 @@ import mobile.group1.DB.UserRecord;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.ImageView;
 
 public class MainActivity extends Activity {
 	// /////////////////////////////////////////////////////////////////////////
@@ -20,6 +24,8 @@ public class MainActivity extends Activity {
 	static public void debug(String msg) {
 		Log.i("me", msg);
 	}
+	
+	ImageView imageView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -107,6 +113,34 @@ public class MainActivity extends Activity {
 //		GameRecord c = new GameRecord("c", gameListener);
 //		c.Get();
 //		c.GetALL();
+		
+		ItemRecord c = new ItemRecord("hello", new ResponseListener()
+		{
+			
+			@Override
+			public void onResponse(Bundle bundle)
+			{
+				if(bundle != null)
+				{
+					QueryType queryType = QueryType.values()[bundle.getInt(MobDBTransaction.QUERY_TYPE)];
+					switch(queryType)
+					{
+					case Get:
+					case Save:
+					case Delete:
+					case File:
+					{
+						Bitmap bitmap = bundle.getParcelable(ItemRecord.IMAGE);
+						
+						imageView = new ImageView(getApplicationContext());
+						imageView.setImageBitmap(bitmap);
+						addContentView(imageView, new LayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)));					}
+					}
+				}
+			}
+		});
+		
+		c.Get();
     }
 
     @Override
