@@ -1,7 +1,10 @@
 package mobile.group1;
 
 import mobile.group1.DB.Item;
+import mobile.group1.DB.ItemRecord;
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -33,6 +36,8 @@ public class New_Game extends Activity {
 	int points3;
 	int points4;
 	int points5;
+	
+	ItemRecord itemrecord;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -51,14 +56,20 @@ public class New_Game extends Activity {
 		item5name = (EditText) findViewById(R.id.item5ET);
 		item5points = (EditText) findViewById(R.id.item5PTS);
 
-		// TODO Auto-generated method stub
+	
 	}
 
 	public void submit(View v) {
 		parsetheinfotostrings();
-		parsetheinfointointegers();
+		//parsetheinfointointegers();
 
 		// submit content to server
+		
+		
+		itemrecord.setName(name1);
+		itemrecord.setDescription("100");
+		
+		itemrecord.Save();
 	}
 
 	public void cancel(View v) {
