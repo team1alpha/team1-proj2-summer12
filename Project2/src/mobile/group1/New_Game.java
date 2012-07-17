@@ -1,6 +1,5 @@
 package mobile.group1;
 
-import mobile.group1.DB.Item;
 import mobile.group1.DB.ItemRecord;
 import android.app.Activity;
 import android.graphics.Bitmap;
@@ -66,10 +65,10 @@ public class New_Game extends Activity {
 		// submit content to server
 		
 		
-		itemrecord.setName(name1);
-		itemrecord.setDescription("100");
-		
-		itemrecord.Save();
+//		itemrecord.setName(name1);
+//		itemrecord.setDescription("100");
+//		
+//		itemrecord.Save();
 	}
 
 	public void cancel(View v) {
