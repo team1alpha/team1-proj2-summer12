@@ -1,21 +1,27 @@
 package mobile.group1.DB;
 
+import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 import java.util.Vector;
 
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
+import com.mobdb.android.DeleteRowData;
 import com.mobdb.android.GetFile;
 import com.mobdb.android.GetRowData;
+import com.mobdb.android.InsertRowData;
 import com.mobdb.android.MobDB;
 import com.mobdb.android.MobDBResponseListener;
 
 public class MobDBTable
 {
-	private static String APP_KEY = "MIRoAA-5T3-uym202kOKKkKuIiZxZErELos-popgfD77YeatrtTsp6WoBmmM";
+	private static String 	   APP_KEY     = "MIRoAA-5T3-uym202kOKKkKuIiZxZErELos-popgfD77YeatrtTsp6WoBmmM";
 	private Vector<UserRecord> userRecords = new Vector<UserRecord>();
 	private Vector<GameRecord> gameRecords = new Vector<GameRecord>();
 	private Vector<ItemRecord> itemRecords = new Vector<ItemRecord>();
+	private boolean            loaded;
 	
 	public boolean addUser(UserRecord newUser)
 	{
@@ -88,7 +94,7 @@ public class MobDBTable
 	
 	public MobDBTable()
 	{
-		Retrieve();
+		Load();
 	}
 	
 	private class MobDBResponseListenerShort implements MobDBResponseListener
@@ -100,7 +106,7 @@ public class MobDBTable
 		@Override public void mobDBResponse(Vector<HashMap<String, Object[]>> result){};
 	}
 	
-	private void loadUsers()
+	public void Load()
 	{
 		MobDB.getInstance().execute(APP_KEY, new GetRowData("users"), null, false, new MobDBResponseListenerShort()
 		{
@@ -118,14 +124,9 @@ public class MobDBTable
 					
 					userRecords.add(new UserRecord(name, password, game, score, found));
 				}
-				
-				loadGames();
 			}
-		}); 		
-	}
-	
-	private void loadGames()
-	{
+		}); 
+		
 		MobDB.getInstance().execute(APP_KEY, new GetRowData("games"), null, false, new MobDBResponseListenerShort()
 		{
 			@Override 
@@ -141,14 +142,9 @@ public class MobDBTable
 					
 					gameRecords.add(new GameRecord(name, started, players, items));
 				}
-				
-				loadItems();
 			}
-		});		
-	}
-	
-	private void loadItems()
-	{
+		});
+		
 		MobDB.getInstance().execute(APP_KEY, new GetRowData("items"), null, false, new MobDBResponseListenerShort()
 		{
 			@Override 
@@ -165,76 +161,76 @@ public class MobDBTable
 					itemRecords.add(new ItemRecord(name, finder, null)); 
 				}
 				
-				loadImages(imageNames);
-			}
-		});				
-	}
-	
-	private void loadImages(Vector<String> imageUrls)
-	{
-		for(String imageName: imageUrls)
-		{
-			MobDB.getInstance().execute(APP_KEY, new GetFile(imageName), null, false, new MobDBResponseListenerShort()
-			{
-				@Override public void mobDBFileResponse(String fileName, byte[] fileData)
+				for(String name: imageNames)
 				{
-					ItemRecord item = GetItemByName(fileName);
-					
-					if(item != null)
+					MobDB.getInstance().execute(APP_KEY, new GetFile(name), null, false, new MobDBResponseListenerShort()
 					{
-						item.setImage(BitmapFactory.decodeByteArray(fileData, 0, fileData.length));
-					}
+						public void mobDBFileResponse(String fileName, byte[] fileData)
+						{
+							GetItemByName(fileName).setImage(BitmapFactory.decodeByteArray(fileData, 0, fileData.length));
+							Log.i("me", "loaded image " + fileName);
+						}
+					});
 				}
-			});
-		}	
+			}
+		});	
 	}
 	
-	void Retrieve()
+	public void Save()
 	{
-		loadUsers();
-	}
-	
-	void Save()
-	{
-		
-	}
-	
+		MobDB.getInstance().execute(APP_KEY, new DeleteRowData("users"), null, false, new MobDBResponseListenerShort()
+		{
+			@Override
+			public void mobDBSuccessResponse()
+			{
+				for(UserRecord user: userRecords)
+				{
+					InsertRowData insertRowData = new InsertRowData("users");
+					insertRowData.setValue("username",     user.getName());
+					insertRowData.setValue("password",     user.getPassword());
+					insertRowData.setValue("current_game", user.getCurrentGame());
+					insertRowData.setValue("score",        user.getScore());
+					insertRowData.setValue("found_items",  user.getFoundItems());
+					MobDB.getInstance().execute(APP_KEY, insertRowData, null, false, null);
+				}
+			}
+		});
 
-//	@Override
-//	protected InsertRowData Inserter()
-//	{
-//		InsertRowData insertRowData = new InsertRowData(TableName());
-//		insertRowData.setValue("username",     getUsername());
-//		insertRowData.setValue("password",     getPassword());
-//		insertRowData.setValue("current_game", getCurrentGame());
-//		insertRowData.setValue("score",        getScore());
-//		insertRowData.setValue("found_items",  getFoundItems());
-//		return insertRowData;
-//		
-//	}
-	// tell the parent class what data to insert for an element of this type
-//	@Override
-//	protected InsertRowData Inserter()
-//	{
-//		InsertRowData insertRowData = new InsertRowData(TableName());
-//		insertRowData.setValue("gamename",     getName());
-//		insertRowData.setValue("started",      isStarted());
-//		insertRowData.setValue("players", 	   getPlayersAsString());
-//		insertRowData.setValue("items",        getItemsAsString());
-//
-//		return insertRowData;
-//	}
-//
-//	@Override
-//	protected InsertRowData Inserter()
-//	{
-//		InsertRowData insertRowData = new InsertRowData(TableName());
-//		ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//		getImage().compress(Bitmap.CompressFormat.PNG, 100, stream);
-//		insertRowData.setValue("image", "picture.bmp", stream.toByteArray());
-//		insertRowData.setValue("name", getName());
-//		insertRowData.setValue("des", getDescription());
-//		insertRowData.setValue("foundby", getFoundBy());
-//		return insertRowData;
-//	}	
+		MobDB.getInstance().execute(APP_KEY, new DeleteRowData("games"), null, false, new MobDBResponseListenerShort()
+		{
+			@Override
+			public void mobDBSuccessResponse()
+			{
+				for(GameRecord game: gameRecords)
+				{
+					InsertRowData insertRowData = new InsertRowData("games");
+					insertRowData.setValue("name",         game.getName());
+					insertRowData.setValue("started",      game.isStarted());
+					insertRowData.setValue("players", 	   game.getPlayers());
+					insertRowData.setValue("items",        game.getItems());
+					
+					MobDB.getInstance().execute(APP_KEY, insertRowData, null, false, null);
+				}
+			}
+		});
+		
+		MobDB.getInstance().execute(APP_KEY, new DeleteRowData("items"), null, false, new MobDBResponseListenerShort()
+		{
+			@Override
+			public void mobDBSuccessResponse()
+			{
+				for(ItemRecord item: itemRecords)
+				{
+					InsertRowData insertRowData = new InsertRowData("items");
+					ByteArrayOutputStream stream = new ByteArrayOutputStream();
+					item.getImage().compress(Bitmap.CompressFormat.PNG, 100, stream);
+					insertRowData.setValue("image", "picture.bmp", stream.toByteArray());
+					insertRowData.setValue("name", item.getName());
+					insertRowData.setValue("finder", item.getFoundBy());
+					
+					MobDB.getInstance().execute(APP_KEY, insertRowData, null, false, null);
+				}
+			}
+		});
+	}
 }

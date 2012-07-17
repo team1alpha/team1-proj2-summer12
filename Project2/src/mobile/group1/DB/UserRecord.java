@@ -10,8 +10,8 @@ public class UserRecord
 	private String score;
 	private String foundItems;
 
-	public String getName()                        { return name;                }
-	public void setName(String username)           { this.name = username;       }
+	public String getName()                        { return name;                    }
+	public void setName(String username)           { this.name = username;           }
 	public String getPassword()                    { return password;                }
 	public void setPassword(String password)       { this.password = password;       }
 	public String getCurrentGame()                 { return currentGame;             }
