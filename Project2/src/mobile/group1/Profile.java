@@ -29,8 +29,8 @@ public class Profile extends Activity {
 
 	public void newgame(View v) {
 
-//		newgameintent = new Intent(this, New_Game.class);
-//		startActivity(newgameintent);
+		newgameintent = new Intent(this, New_Game.class);
+		startActivity(newgameintent);
 	}
 
 	public void exit1(View v) {

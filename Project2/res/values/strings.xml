@@ -33,5 +33,10 @@
     <string name="login">Login</string>
     <string name="password">Password</string>
     <string name="username">Username</string>
+    <string name="totalscore">Total Score:</string>
+    <string name="gamestarted">Game Started:</string>
+    <string name="friendprogress">Friends Progress</string>
+    <string name="zero">0</string>
+    <string name="slash">/</string>
 
 </resources>

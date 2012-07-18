@@ -2,8 +2,7 @@ package mobile.group1;
 
 import mobile.group1.DB.ItemRecord;
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -35,8 +34,13 @@ public class New_Game extends Activity {
 	int points3;
 	int points4;
 	int points5;
+	public static int TOTAL_SCORE = 0;
 	
-	ItemRecord itemrecord;
+	ItemRecord itemrecord1;
+	ItemRecord itemrecord2;
+	ItemRecord itemrecord3;
+	ItemRecord itemrecord4;
+	ItemRecord itemrecord5;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -54,21 +58,38 @@ public class New_Game extends Activity {
 		item4points = (EditText) findViewById(R.id.item4PTS);
 		item5name = (EditText) findViewById(R.id.item5ET);
 		item5points = (EditText) findViewById(R.id.item5PTS);
-
-	
 	}
 
 	public void submit(View v) {
 		parsetheinfotostrings();
-		//parsetheinfointointegers();
+		parsetheinfointointegers();
 
 		// submit content to server
-		
-		
-//		itemrecord.setName(name1);
-//		itemrecord.setDescription("100");
+//		itemrecord1.setName(name1);
+//		itemrecord1.setScore(points1);
+//		itemrecord2.setName(name2);
+//		itemrecord2.setScore(points2);
+//		itemrecord3.setName(name3);
+//		itemrecord3.setScore(points3);
+//		itemrecord4.setName(name4);
+//		itemrecord4.setScore(points4);
+//		itemrecord5.setName(name5);
+//		itemrecord5.setScore(points5);
 //		
-//		itemrecord.Save();
+//		itemrecord1.Save();
+//		itemrecord2.Save();
+//		itemrecord3.Save();
+//		itemrecord4.Save();
+//		itemrecord5.Save();
+		Intent myintent = new Intent(this, Main_Game.class);
+		if (TOTAL_SCORE != 0) {
+			myintent.putExtra("totalscore", TOTAL_SCORE);
+		}
+		if (gamename != null){
+			myintent.putExtra("nameofgame", gamename);
+		}
+		startActivity(myintent);
+
 	}
 
 	public void cancel(View v) {
@@ -84,16 +105,23 @@ public class New_Game extends Activity {
 		name3 = item3name.getText().toString();
 		name4 = item4name.getText().toString();
 		name5 = item5name.getText().toString();
-
 	}
 
 	public void parsetheinfointointegers() {
-
+		try{
 		points1 = Integer.parseInt(item1points.getText().toString());
 		points2 = Integer.parseInt(item2points.getText().toString());
 		points3 = Integer.parseInt(item3points.getText().toString());
 		points4 = Integer.parseInt(item4points.getText().toString());
 		points5 = Integer.parseInt(item5points.getText().toString());
+		TOTAL_SCORE = points1+points2+points3+points4+points5;
+		
+		String total = (String) String.valueOf(TOTAL_SCORE);
+		Toast.makeText(this,total, Toast.LENGTH_SHORT).show();
+		} catch(Exception exception){	
+			Toast.makeText(this,"Missing Numbers, Complete each section", Toast.LENGTH_SHORT).show();
+		}
+		
 	}
 
 	public void invite() {

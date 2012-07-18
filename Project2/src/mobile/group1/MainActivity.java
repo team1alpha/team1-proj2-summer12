@@ -101,7 +101,7 @@ public class MainActivity extends Activity
 				// item already exhists make user choose different name for it.
 			}
 
-			if(table.addItem(new ItemRecord("this", "that", ItemRecord.BitmapFromResouces(getResources(), R.drawable.five))) == true)
+			//if(table.addItem(new ItemRecord("this", "that", ItemRecord.BitmapFromResouces(getResources(), R.drawable.five))) == true)
 			{
 				// item added
 			}

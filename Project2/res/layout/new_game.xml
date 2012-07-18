@@ -38,13 +38,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/newgametitle" />
-
+
                 <EditText
                     android:id="@+id/newgameET"
                     android:layout_width="287dp"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="@string/entergametitle" />
+                    android:hint="@string/entergametitle"
+                    android:singleLine="true" />
 
             </LinearLayout>
 
@@ -57,22 +58,25 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/itemName" />
-
+
                 <EditText
                     android:id="@+id/item1ET"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:hint="@string/entername" />
-
+                    android:hint="@string/entername"
+                    android:singleLine="true" />
+
                 <EditText
                     android:id="@+id/item1PTS"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:hint="@string/enterpoints" />
+                    android:hint="@string/enterpoints"
+                    android:inputType="number"
+                    android:singleLine="true" />
 
             </LinearLayout>
 
@@ -85,22 +89,25 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/itemName" />
-
+
                 <EditText
                     android:id="@+id/item2ET"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:hint="@string/entername" />
-
+                    android:hint="@string/entername"
+                    android:singleLine="true" />
+
                 <EditText
                     android:id="@+id/item2PTS"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:hint="@string/enterpoints" />
+                    android:hint="@string/enterpoints"
+                    android:inputType="number"
+                    android:singleLine="true" />
 
             </LinearLayout>
 
@@ -113,25 +120,28 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/itemName" />
-
+
                 <EditText
                     android:id="@+id/item3ET"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:hint="@string/entername" >
+                    android:hint="@string/entername"
+                    android:singleLine="true" >
 
                     <requestFocus />
                 </EditText>
-
+
                 <EditText
                     android:id="@+id/item3PTS"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:hint="@string/enterpoints" />
+                    android:hint="@string/enterpoints"
+                    android:inputType="number"
+                    android:singleLine="true" />
 
             </LinearLayout>
 
@@ -144,22 +154,25 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/itemName" />
-
+
                 <EditText
                     android:id="@+id/item4ET"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:hint="@string/entername" />
-
+                    android:hint="@string/entername"
+                    android:singleLine="true" />
+
                 <EditText
                     android:id="@+id/item4PTS"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:hint="@string/enterpoints" />
+                    android:hint="@string/enterpoints"
+                    android:inputType="number"
+                    android:singleLine="true" />
 
             </LinearLayout>
 
@@ -172,22 +185,25 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/itemName" />
-
+
                 <EditText
                     android:id="@+id/item5ET"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:hint="@string/entername" />
-
+                    android:hint="@string/entername"
+                    android:singleLine="true" />
+
                 <EditText
                     android:id="@+id/item5PTS"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:hint="@string/enterpoints" />
+                    android:hint="@string/enterpoints"
+                    android:inputType="number"
+                    android:singleLine="true" />
 
             </LinearLayout>
 

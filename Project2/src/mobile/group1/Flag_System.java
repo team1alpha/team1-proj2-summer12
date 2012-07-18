@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Flag_System extends Activity {
 
@@ -16,13 +17,13 @@ public class Flag_System extends Activity {
 		setContentView(R.layout.flagpicture);
 
 		flagTV = (TextView) findViewById(R.id.flagTV);
-
-		// TODO Auto-generated method stub
+		
 	}
 
 	public void flagBT(View v) {
 		flagTV.setText("This Picture is Flag");
 		flagTV.setTextColor(0xffff0000);
+		
 	}
 
 }
