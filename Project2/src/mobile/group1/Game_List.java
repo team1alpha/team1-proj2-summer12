@@ -43,13 +43,15 @@ public class Game_List extends ListActivity {
 	   
 	    //get username from login to check for games
 	    username = getIntent().getStringExtra("username");
-	    
+	    Toast.makeText(getApplicationContext(), username, Toast.LENGTH_LONG).show();
 	    //max list of games
 	    list = new String[5];
 	    final ListView lv;
 	    flag = 0;
 	    x = 0;
-
+	    
+	    
+	    
 		 GetRowData getRowData = new GetRowData("games");
 		    
 		    MobDB.getInstance().execute(APP_KEY, getRowData, null, false, new MobDBResponseListener() {
@@ -60,7 +62,8 @@ public class Game_List extends ListActivity {
 			    }          
 			     
 			    @Override public void mobDBResponse(Vector<HashMap<String, Object[]>> result) {
-			    //row list in Vector<HashMap<String, Object[]>> object             
+			    //row list in Vector<HashMap<String, Object[]>> object   
+			    	
 			    }          
 			     
 			    @Override public void mobDBResponse(String jsonStr) {
@@ -81,9 +84,10 @@ public class Game_List extends ListActivity {
 			    				//iterate through the games in the db
 			    				object = array.getJSONObject(i);
 			    				
+			    				
 			    				//see if the user is part of the game
-			    				CharSequence cs = new String("craig");
-			    				if(object.getString("players").contains(cs)){
+			    				
+			    				if(object.getString("players").contains("craig")){
 			    					
 			    					flag++;
 			    					list[x] = object.getString("name");

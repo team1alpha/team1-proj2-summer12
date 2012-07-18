@@ -39,8 +39,8 @@ public class CreateNewActivity extends Activity {
 	    // TODO Auto-generated method stub
 	    
 	    createNew = (Button) findViewById(R.id.createNewButton);
-	    userName = (EditText) findViewById(R.id.createUsernameTextET);
-	    password = (EditText) findViewById(R.id.createPasswordTextET);
+	    userName = (EditText) findViewById(R.id.createUsernameText);
+	    password = (EditText) findViewById(R.id.createPasswordText);
 	    
 	    userNameView = (TextView) findViewById(R.id.createUsername);
 	    
@@ -86,6 +86,7 @@ public class CreateNewActivity extends Activity {
 		    				
 		    				JSONObject object = users.getJSONObject(i);
 		    				String name = object.getString("name");
+		    				
 		    				if(userName.getText().toString().equals(name))
 		    				{	
 		    					flag++;
@@ -144,6 +145,11 @@ public class CreateNewActivity extends Activity {
 			    		
 			    			
 			    	}
+			    	
+		    			
+		    			
+		    		
+		    		
 		    	}
 		    	catch(JSONException e){
 		    		

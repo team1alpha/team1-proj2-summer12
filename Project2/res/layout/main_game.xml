@@ -22,7 +22,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/titleofgame"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
-            <TextView
+            
+             <TextView
                 android:id="@+id/player1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -63,6 +64,9 @@
                 android:onClick="playerClick"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
             
+          
+            
+           
 
             <ImageView
                 android:id="@+id/mainImage"
@@ -182,11 +186,19 @@
                     android:layout_height="wrap_content"
                     android:onClick="moreinfo"
                     android:text="@string/moreinfo" />
-
+                
+                
+                
             </LinearLayout>
+            
+            
+             
+            
 
         </LinearLayout>
 
     </ScrollView>
+    
+     
 
 </LinearLayout>

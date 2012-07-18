@@ -43,7 +43,7 @@ public class New_Game extends Activity {
 	int points4;
 	int points5;
 	
-	int TOTAL_SCORE = 0;
+	ItemRecord itemrecord;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -131,20 +131,12 @@ public class New_Game extends Activity {
 	}
 
 	public void parsetheinfointointegers() {
-		try{
+
 		points1 = Integer.parseInt(item1points.getText().toString());
 		points2 = Integer.parseInt(item2points.getText().toString());
 		points3 = Integer.parseInt(item3points.getText().toString());
 		points4 = Integer.parseInt(item4points.getText().toString());
 		points5 = Integer.parseInt(item5points.getText().toString());
-		TOTAL_SCORE = points1+points2+points3+points4+points5;
-		
-		String total = (String) String.valueOf(TOTAL_SCORE);
-		Toast.makeText(this,total, Toast.LENGTH_SHORT).show();
-		} catch(Exception exception){	
-			Toast.makeText(this,"Missing Numbers, Complete each section", Toast.LENGTH_SHORT).show();
-		}
-		
 	}
 
 	public void invite() {
