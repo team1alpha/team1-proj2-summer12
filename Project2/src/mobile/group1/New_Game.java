@@ -1,15 +1,23 @@
 package mobile.group1;
 
+import java.util.HashMap;
+import java.util.Vector;
+
 import mobile.group1.DB.ItemRecord;
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.mobdb.android.InsertRowData;
+import com.mobdb.android.MobDB;
+import com.mobdb.android.MobDBResponseListener;
+
 public class New_Game extends Activity {
 
+	final String APP_KEY = "MIRoAA-5T3-uym202kOKKkKuIiZxZErELos-popgfD77YeatrtTsp6WoBmmM";
 	EditText newgametitle;
 	EditText item1name;
 	EditText item1points;
@@ -21,7 +29,7 @@ public class New_Game extends Activity {
 	EditText item4points;
 	EditText item5name;
 	EditText item5points;
-
+	Button submit;
 	String gamename;
 	String name1;
 	String name2;
@@ -34,13 +42,8 @@ public class New_Game extends Activity {
 	int points3;
 	int points4;
 	int points5;
-	public static int TOTAL_SCORE = 0;
 	
-	ItemRecord itemrecord1;
-	ItemRecord itemrecord2;
-	ItemRecord itemrecord3;
-	ItemRecord itemrecord4;
-	ItemRecord itemrecord5;
+	int TOTAL_SCORE = 0;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -58,37 +61,56 @@ public class New_Game extends Activity {
 		item4points = (EditText) findViewById(R.id.item4PTS);
 		item5name = (EditText) findViewById(R.id.item5ET);
 		item5points = (EditText) findViewById(R.id.item5PTS);
+		submit = (Button) findViewById(R.id.button2);
+	
 	}
 
 	public void submit(View v) {
 		parsetheinfotostrings();
 		parsetheinfointointegers();
 
-		// submit content to server
-//		itemrecord1.setName(name1);
-//		itemrecord1.setScore(points1);
-//		itemrecord2.setName(name2);
-//		itemrecord2.setScore(points2);
-//		itemrecord3.setName(name3);
-//		itemrecord3.setScore(points3);
-//		itemrecord4.setName(name4);
-//		itemrecord4.setScore(points4);
-//		itemrecord5.setName(name5);
-//		itemrecord5.setScore(points5);
-//		
-//		itemrecord1.Save();
-//		itemrecord2.Save();
-//		itemrecord3.Save();
-//		itemrecord4.Save();
-//		itemrecord5.Save();
-		Intent myintent = new Intent(this, Main_Game.class);
-		if (TOTAL_SCORE != 0) {
-			myintent.putExtra("totalscore", TOTAL_SCORE);
-		}
-		if (gamename != null){
-			myintent.putExtra("nameofgame", gamename);
-		}
-		startActivity(myintent);
+		//submit to server
+		
+		String values = name1 + "; " + name2 + "; " + name3 + "; " + name4 + "; " + name5 + ";";
+		
+		InsertRowData insertRowData = new InsertRowData("games");
+		insertRowData.setValue("name", gamename);
+		insertRowData.setValue("started", "no");
+		insertRowData.setValue("players", "");
+		insertRowData.setValue("items", values);
+		
+		MobDB.getInstance().execute(APP_KEY, insertRowData, null, false, new MobDBResponseListener() {
+		     
+		    @Override public void mobDBSuccessResponse() {
+		    //request successfully executed
+		    	
+		    	Toast.makeText(getApplicationContext(), "Game has been created", Toast.LENGTH_LONG).show();
+		    	
+		    	
+		    	
+		    }          
+		     
+		    @Override public void mobDBResponse(Vector<HashMap<String, Object[]>> result) {
+		    //row list in Vector<HashMap<String, Object[]>> object             
+		    }          
+		     
+		    @Override public void mobDBResponse(String jsonStr) {
+		    //table row list in raw JSON string (for format example: refer JSON REST API)
+		    		
+		    	
+		    }
+		     
+		    @Override public void mobDBFileResponse(String fileName, byte[] fileData) {
+		    //get file name with extension and file byte array
+		    }          
+		     
+		    @Override public void mobDBErrorResponse(Integer errValue, String errMsg) {
+		    //request failed
+		    	Toast.makeText(getApplicationContext(), "Game could not be created created", Toast.LENGTH_LONG).show();
+		    }
+		});	
+		
+		
 
 	}
 
@@ -105,6 +127,7 @@ public class New_Game extends Activity {
 		name3 = item3name.getText().toString();
 		name4 = item4name.getText().toString();
 		name5 = item5name.getText().toString();
+
 	}
 
 	public void parsetheinfointointegers() {

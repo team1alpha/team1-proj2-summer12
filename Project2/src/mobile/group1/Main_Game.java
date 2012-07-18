@@ -2,23 +2,32 @@ package mobile.group1;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.Vector;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.mobdb.android.GetRowData;
+import com.mobdb.android.InsertRowData;
+import com.mobdb.android.MobDB;
+import com.mobdb.android.MobDBResponseListener;
 
 public class Main_Game extends Activity {
 
@@ -30,6 +39,13 @@ public class Main_Game extends Activity {
 	ImageView mainimage;
 	TextView itemname;
 	TextView itemscore;
+
+	TextView player1;
+	TextView player2;
+	TextView player3;
+	TextView player4;
+	TextView player5;
+	
 	TextView gamestarted;
 	TextView flagpic;
 	TextView gametitle;
@@ -41,6 +57,8 @@ public class Main_Game extends Activity {
 	String nameofgame;
 	int TotalnewScore = 0;
 	
+	TextView title;
+	final String APP_KEY = "MIRoAA-5T3-uym202kOKKkKuIiZxZErELos-popgfD77YeatrtTsp6WoBmmM";
 
 	/** Called when the activity is first created. */
 	@Override
@@ -48,14 +66,100 @@ public class Main_Game extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_game);
 		
-		gametitle = (TextView) findViewById(R.id.gameTitle);
+		player1 = (TextView) findViewById(R.id.player1);
+		player2 = (TextView) findViewById(R.id.player2);
+		player3 = (TextView) findViewById(R.id.player3);
+		player4 = (TextView) findViewById(R.id.player4);
+		player5 = (TextView) findViewById(R.id.player5);
+		
+		String gamename = getIntent().getStringExtra("name");
+		title = (TextView) findViewById(R.id.gameTitle);
+		
+		
+		GetRowData getRowData = new GetRowData("games");
+		getRowData.getField("players");
+		getRowData.whereEqualsTo("name", gamename);
+		
+		MobDB.getInstance().execute(APP_KEY, getRowData, null, false, new MobDBResponseListener() {
+		     
+		    @Override public void mobDBSuccessResponse() {
+		    //request successfully executed
+		    	//Toast.makeText(getApplicationContext(), "got games data", Toast.LENGTH_LONG).show();
+		    }          
+		     
+		    @Override public void mobDBResponse(Vector<HashMap<String, Object[]>> result) {
+		    //row list in Vector<HashMap<String, Object[]>> object             
+		    }          
+		     
+		    @Override public void mobDBResponse(String jsonStr) {
+		    //table row list in raw JSON string (for format example: refer JSON REST API)
+		    	try{
+		    		
+		    		//check to see if we got the data from the db
+		    		JSONObject response = new JSONObject(jsonStr);
+		    		int status = response.getInt("status");
+		    		JSONObject object;
+		    		
+		    		if(status == 101)
+		    		{
+		    			//get JSONArray containing all rows of game data
+		    			JSONArray array = response.getJSONArray("row");
+		    			object = array.getJSONObject(0);
+		    			
+		    			String players = object.getString("players");
+		    			
+		    			String[] playerlist = players.split(";");
+		    			
+		    			for(int i = 0; i < playerlist.length; i++)
+		    			{
+		    				if(i == 0)
+		    					player1.setText(playerlist[i]); 
+		    				else if(i == 1)
+		    					player2.setText(playerlist[i]);
+		    				else if( i == 2)
+		    					player3.setText(playerlist[i]);
+		    				else if(i == 3)
+		    					player4.setText(playerlist[i]);
+		    				else if(i == 4)
+		    					player5.setText(playerlist[i]);
+		    			}
+		    			
+		    			
+		    			
+		    		}	
+		    	}
+		    	catch(JSONException e){
+		    		
+		    	}
+		    	
+			    
+			   
+			    
+			    
+		    	
+		    	
+		    }
+		     
+		    @Override public void mobDBFileResponse(String fileName, byte[] fileData) {
+		    //get file name with extension and file byte array
+		    }          
+		     
+		    @Override public void mobDBErrorResponse(Integer errValue, String errMsg) {
+		    //request failed
+		    	
+		    }
+		});	
+	      
+		
+		
+		
+		
+		
+		title.setText(gamename);
+		
 		itemname = (TextView) findViewById(R.id.itemName);
 		itemscore = (TextView) findViewById(R.id.pointsworth);
-		gamestarted = (TextView) findViewById(R.id.startedboolean);
 		mainimage = (ImageView) findViewById(R.id.mainImage);
-		flagpic = (TextView) findViewById(R.id.flagpic);
-		totalscoreTV = (TextView) findViewById(R.id.totalscore);
-		currentscoreTV = (TextView) findViewById(R.id.currentpoints);
 		// create Intent to take a picture and return control to the calling
 		// application
 		picIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -63,59 +167,54 @@ public class Main_Game extends Activity {
 		// fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE); // create a file to save the image
 		// picIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-		Intent mainintent = getIntent();
-		Bundle mainbundle = mainintent.getExtras();
-		if (mainbundle != null){
-			nameofgame = mainbundle.getString("nameofgame");
-			TotalnewScore = mainbundle.getInt("totalscore");
-			
-			String total = (String) String.valueOf(TotalnewScore);
-			totalscoreTV.setText(total);
-			gametitle.setText(nameofgame);
-		}
+																// file name
 
 	}
 
 	public void takePicture(View v) {
-
+	
 		startActivityForResult(picIntent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
 	}
 
-	public void upload(View v) {
-		checksitemselected();
-		// upload picture to the server
-		if (pictureUploaded != null) {
-			mainimage.setImageBitmap(pictureUploaded);
-		} else {
-			Toast.makeText(this, "Pic not there", Toast.LENGTH_SHORT).show();
-		}
+	public void playerClick(View v)
+	{
 		
 	}
-	public void friendsprogress(View v) {
-		Toast.makeText(this, "Friend list", Toast.LENGTH_SHORT).show();
+	
+	public void upload(View v) {
+		// upload picture to the server
 		
+		InsertRowData insertRowData = new InsertRowData("items");
+		
+		
+		
+		
+		
+		
+		
+	}
 
+	public void moreinfo(View v) {
+		// activity to see comments and flags
+		flagintent = new Intent(this, Flag_System.class);
+		startActivity(flagintent);
+		
 	}
 
 	public void imagebt1(View V) {
-		selection = 1;
 		itemname.setText("Item 1");
 		itemscore.setText("10");
-		currentscoreTV.setText(String.valueOf(currentscore));
+		
 		// image is updated by button image
 		// mainimage.setImageURI(fileUri);
 		// information of item is downloaded
-		//if picture is updated update score
-		
 
 	}
 
 	public void imagebt2(View V) {
-		selection = 2;
 		itemname.setText("Item 2");
 		itemscore.setText("20");
-		currentscoreTV.setText(String.valueOf(currentscore));
-
+		
 		// image is updated by button image
 		// mainimage.setImageURI(fileUri);
 		// information of item is downloaded
@@ -123,14 +222,13 @@ public class Main_Game extends Activity {
 	}
 
 	public void imagebt3(View V) {
-		selection = 3;
 		itemname.setText("Item 3");
 		itemscore.setText("30");
+		
 		// image is updated by button image
 		// mainimage.setImageURI(fileUri);
 		// information of item is downloaded
-		
-			if (pictureUploaded != null) {
+		if (pictureUploaded != null) {
 			mainimage.setImageBitmap(pictureUploaded);
 			currentscore = 20;
 			Toast.makeText(this, String.valueOf(currentscore), Toast.LENGTH_SHORT).show();
@@ -142,15 +240,12 @@ public class Main_Game extends Activity {
 	}
 
 	public void imagebt4(View V) {
-		selection = 4;
 		itemname.setText("Item 4");
 		itemscore.setText("40");
 		
 		// image is updated by button image
 		// mainimage.setImageURI(fileUri);
 		// information of item is downloaded
-		currentscoreTV.setText(String.valueOf(currentscore));
-
 
 	}
 
@@ -165,12 +260,11 @@ public class Main_Game extends Activity {
 		Toast.makeText(this, String.valueOf(whatsthescore(0)), Toast.LENGTH_LONG).show();
 		currentscoreTV.setText(String.valueOf(currentscore));
 
+
 	}
 
 	public static Uri getOutputMediaFileUri(int type) {
 		return Uri.fromFile(getOutputMediaFile(type));
-		// Uri to get the image of the sd card after pic is taken
-
 	}
 
 	public static File getOutputMediaFile(int type) {
@@ -241,7 +335,6 @@ public class Main_Game extends Activity {
 			}
 		}
 	}
-
 	public void checksitemselected() {
 		switch (selection){
 		case 1:
