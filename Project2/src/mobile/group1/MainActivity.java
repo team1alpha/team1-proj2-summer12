@@ -31,67 +31,82 @@ public class MainActivity extends Activity
 	@Override
 	protected void onStart()
 	{
-//		/*
-//		 * To get items whose name is known.
-//		 */
-//		UserRecord user   = table.GetUserByName("test");
-//		GameRecord game   = table.GetGameByName("c");
-//		ItemRecord item   = table.GetItemByName("google.bmp");
-//
-//		/*
-//		 * Thats if now you have records for known items. To check to see if an item is in the DB
-//		 * do.
-//		 */
-//		if(user == null)
-//		{
-//			Log.i("me", user.toString());
-//		}
-//		
-//		if(game == null)
-//		{
-//			Log.i("me", game.toString());
-//		}
-//		
-//		if(item == null)
-//		{
-//			Log.i("me", item.toString());
-//		}
-//		
-//		/*
-//		 * Once you have a reference to an object you can access it just like a normal object
-//		 * and all state changes can be committed with a database save. Of course the update
-//		 * takes some time so don reload your table right away.
-//		 */
-//		user.setPassword("hello");
-//		//table.Save();
-//		
-//		// wait some time and you cannot block or busy wait.
-//		table.Load();
-//		
-//		//wait some time and you cannot block or busy wait.
-//		user = table.GetUserByName("test");
-//		
-//		if(user != null)
-//		{
-//			Log.i("me", user.toString()); // if enough time waited password should be updated
-//		}
-//		
-//		
-//		/*
-//		 * To add an object to the database while at the same time making sure no object
-//		 * of that same name is in there. 
-//		 */
-//		if(table.addUser(new UserRecord("sam", "soon", "swan", "sweep", "swoon")) == false)
-//		{
-//			// item already exhists make user choose different name for it.
-//		}
-//
-//		if(table.addItem(new ItemRecord("this", "that", ItemRecord.BitmapFromResouces(this.getResources(), R.drawable.five))) == true)
-//		{
-//			// item added
-//		}
-		
-		
+//			while(table.GetUserByName("test") == null)
+//			{
+//				try
+//				{
+//					Thread.sleep(500);
+//				} catch (InterruptedException e)
+//				{
+//					e.printStackTrace();
+//				}
+//			}
+//			Log.i("me", "loaded");
+			
+			/*
+			 * To get items whose name is known. If the database has not been loaded yet these might return null.
+			 * I suggest when we start the app we show some kind of splash screen.
+			 */
+			UserRecord user   = table.GetUserByName("test");
+			GameRecord game   = table.GetGameByName("c");
+			ItemRecord item   = table.GetItemByName("google.bmp");
+
+			/*
+			 * Thats if now you have records for known items. To check to see if an item is in the DB
+			 * do. 
+			 */
+			if(user != null)
+			{
+				Log.i("me", user.toString());
+			}
+			
+			if(game != null)
+			{
+				Log.i("me", game.toString());
+			}
+			
+			if(item != null)
+			{
+				Log.i("me", item.toString());
+			}
+			
+			/*
+			 * Once you have a reference to an object you can access it just like a normal object
+			 * and all state changes can be committed with a database save. Of course the update
+			 * takes some time so don reload your table right away.
+			 */
+			if(user != null)
+			{
+				user.setPassword("hello");
+				table.Save();
+			}
+			
+			// wait some time and you cannot block or busy wait.
+			table.Load();
+			
+			//wait some time and you cannot block or busy wait.
+			user = table.GetUserByName("test");
+			
+			if(user != null)
+			{
+				Log.i("me", user.toString()); // if enough time waited password should be updated
+			}
+			
+			/*
+			 * To add an object to the database while at the same time making sure no object
+			 * of that same name is in there. 
+			 */
+			if(table.addUser(new UserRecord("sam", "soon", "swan", "sweep", "swoon")) == false)
+			{
+				// item already exhists make user choose different name for it.
+			}
+
+			if(table.addItem(new ItemRecord("this", "that", ItemRecord.BitmapFromResouces(getResources(), R.drawable.five))) == true)
+			{
+				// item added
+			}
+
+
 		super.onStart();
 	}
 

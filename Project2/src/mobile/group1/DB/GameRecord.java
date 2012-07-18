@@ -9,10 +9,10 @@ public class GameRecord
 	private String   players;
 	private String   items;
 
-	public String   getName   (                ){return name;            }
-	public void     setName   (String name     ){this.name = name;       }
-	public String   isStarted (                ){return started;         }
-	public void     setStarted(String started  ){this.started = started; }
+	public String   getName   (                ){ return name;           }
+	public void     setName   (String name     ){ this.name = name;      }
+	public String   isStarted (                ){ return started;        }
+	public void     setStarted(String started  ){ this.started = started;}
 	public String   getPlayers(                ){ return players;        }
 	public void     setPlayers(String players  ){ this.players = players;}
 	public String   getItems  (                ){ return items;          }

@@ -21,7 +21,6 @@ public class MobDBTable
 	private Vector<UserRecord> userRecords = new Vector<UserRecord>();
 	private Vector<GameRecord> gameRecords = new Vector<GameRecord>();
 	private Vector<ItemRecord> itemRecords = new Vector<ItemRecord>();
-	private boolean            loaded;
 	
 	public boolean addUser(UserRecord newUser)
 	{
