@@ -14,6 +14,7 @@ import android.view.View;
 
 public class MainActivity extends Activity
 {
+	
 	/*
 	 * Do this early so that the query can go on in the background.
 	 * once this completes the whole database is loaded.
@@ -84,6 +85,12 @@ public class MainActivity extends Activity
 //		{
 //			// item already exhists make user choose different name for it.
 //		}
+//
+//		if(table.addItem(new ItemRecord("this", "that", ItemRecord.BitmapFromResouces(this.getResources(), R.drawable.five))) == true)
+//		{
+//			// item added
+//		}
+		
 		
 		super.onStart();
 	}
