@@ -16,7 +16,7 @@
             android:text="@string/username" />
 
         <EditText
-            android:id="@+id/createUsernameTextET"
+            android:id="@+id/createUsernameText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -36,7 +36,7 @@
             android:text="@string/password" />
 
         <EditText
-            android:id="@+id/createPasswordTextET"
+            android:id="@+id/createPasswordText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"

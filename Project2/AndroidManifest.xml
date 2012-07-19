@@ -33,6 +33,7 @@
         <activity android:name="Flag_System"></activity>
         <activity android:name="Profile"></activity>
         <activity android:name="New_Game"></activity>
+        <activity android:name="Game_List"></activity>
     </application>
 
 </manifest>

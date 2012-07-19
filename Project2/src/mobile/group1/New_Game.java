@@ -1,16 +1,23 @@
 package mobile.group1;
 
+import java.util.HashMap;
+import java.util.Vector;
+
 import mobile.group1.DB.ItemRecord;
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.mobdb.android.InsertRowData;
+import com.mobdb.android.MobDB;
+import com.mobdb.android.MobDBResponseListener;
+
 public class New_Game extends Activity {
 
+	final String APP_KEY = "MIRoAA-5T3-uym202kOKKkKuIiZxZErELos-popgfD77YeatrtTsp6WoBmmM";
 	EditText newgametitle;
 	EditText item1name;
 	EditText item1points;
@@ -22,7 +29,7 @@ public class New_Game extends Activity {
 	EditText item4points;
 	EditText item5name;
 	EditText item5points;
-
+	Button submit;
 	String gamename;
 	String name1;
 	String name2;
@@ -54,21 +61,57 @@ public class New_Game extends Activity {
 		item4points = (EditText) findViewById(R.id.item4PTS);
 		item5name = (EditText) findViewById(R.id.item5ET);
 		item5points = (EditText) findViewById(R.id.item5PTS);
-
+		submit = (Button) findViewById(R.id.button2);
 	
 	}
 
 	public void submit(View v) {
 		parsetheinfotostrings();
-		//parsetheinfointointegers();
+		parsetheinfointointegers();
 
-		// submit content to server
+		//submit to server
+		
+		String values = name1 + "; " + name2 + "; " + name3 + "; " + name4 + "; " + name5 + ";";
+		
+		InsertRowData insertRowData = new InsertRowData("games");
+		insertRowData.setValue("name", gamename);
+		insertRowData.setValue("started", "no");
+		insertRowData.setValue("players", "");
+		insertRowData.setValue("items", values);
+		
+		MobDB.getInstance().execute(APP_KEY, insertRowData, null, false, new MobDBResponseListener() {
+		     
+		    @Override public void mobDBSuccessResponse() {
+		    //request successfully executed
+		    	
+		    	Toast.makeText(getApplicationContext(), "Game has been created", Toast.LENGTH_LONG).show();
+		    	
+		    	
+		    	
+		    }          
+		     
+		    @Override public void mobDBResponse(Vector<HashMap<String, Object[]>> result) {
+		    //row list in Vector<HashMap<String, Object[]>> object             
+		    }          
+		     
+		    @Override public void mobDBResponse(String jsonStr) {
+		    //table row list in raw JSON string (for format example: refer JSON REST API)
+		    		
+		    	
+		    }
+		     
+		    @Override public void mobDBFileResponse(String fileName, byte[] fileData) {
+		    //get file name with extension and file byte array
+		    }          
+		     
+		    @Override public void mobDBErrorResponse(Integer errValue, String errMsg) {
+		    //request failed
+		    	Toast.makeText(getApplicationContext(), "Game could not be created created", Toast.LENGTH_LONG).show();
+		    }
+		});	
 		
 		
-//		itemrecord.setName(name1);
-//		itemrecord.setDescription("100");
-//		
-//		itemrecord.Save();
+
 	}
 
 	public void cancel(View v) {

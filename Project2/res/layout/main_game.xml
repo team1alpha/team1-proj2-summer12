@@ -22,6 +22,51 @@
                 android:layout_height="wrap_content"
                 android:text="@string/titleofgame"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
+            
+             <TextView
+                android:id="@+id/player1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:clickable="true"
+                android:onClick="playerClick"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+            <TextView
+                android:id="@+id/player2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:clickable="true"
+                android:onClick="playerClick"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+            <TextView
+                android:id="@+id/player3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:clickable="true"
+                android:onClick="playerClick"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+            <TextView
+                android:id="@+id/player4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:clickable="true"
+                android:onClick="playerClick"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+            <TextView
+                android:id="@+id/player5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:clickable="true"
+                android:onClick="playerClick"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+            
+          
+            
+           
 
             <ImageView
                 android:id="@+id/mainImage"
@@ -141,11 +186,19 @@
                     android:layout_height="wrap_content"
                     android:onClick="moreinfo"
                     android:text="@string/moreinfo" />
-
+                
+                
+                
             </LinearLayout>
+            
+            
+             
+            
 
         </LinearLayout>
 
     </ScrollView>
+    
+     
 
 </LinearLayout>
