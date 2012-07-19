@@ -33,10 +33,10 @@ public class Profile extends Activity {
 
 		// TODO Auto-generated method stub
 		user = getIntent().getStringExtra("username");
-		
+		//Toast.makeText(getApplicationContext(), user, Toast.LENGTH_LONG).show();
 		profilename = (TextView) findViewById(R.id.profile_name);
 		
-		profilename.setText(user);
+		profilename.setText("Welcome, " + user);
 		
 		
 		
@@ -44,16 +44,17 @@ public class Profile extends Activity {
 
 	public void inprogress(View v) {
 
-//		inprogressintent = new Intent(this, Game_List.class);
-//		
-//		inprogressintent.putExtra("username", user);
-//	
-//		startActivity(inprogressintent);
+		inprogressintent = new Intent(this, Game_List.class);
+		
+		inprogressintent.putExtra("username", user);
+	
+		startActivity(inprogressintent);
 	}
 
 	public void newgame(View v) {
 
 		newgameintent = new Intent(this, New_Game.class);
+		newgameintent.putExtra("username", user);
 		startActivity(newgameintent);
 	}
 

@@ -37,6 +37,7 @@ public class MainActivity extends Activity {
 	final String TABLE_NAME = "users";
 	Intent intent;
 	ImageView imageView;
+	String user;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,11 +67,11 @@ public class MainActivity extends Activity {
     	Intent intent = new Intent(this, CreateNewActivity.class);
     	startActivity(intent);
     	
-    	
+    	      
     }
     public void login(View v){
     	
-    	
+    	user = userName.getText().toString();
     	intent = new Intent(this, Profile.class);
     	GetRowData getRowData = new GetRowData("users");
 		getRowData.getField("name");
@@ -104,7 +105,7 @@ public class MainActivity extends Activity {
 			    		String pass = login.getString("password");
 			    		if(pass.equals(password.getText().toString())){
 			    			
-			    			intent.putExtra("userName", userName.getText().toString());
+			    			intent.putExtra("username", user);
 			    	    	startActivity(intent);	
 			    			
 			    		}

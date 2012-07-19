@@ -186,8 +186,13 @@
                     android:layout_height="wrap_content"
                     android:onClick="moreinfo"
                     android:text="@string/moreinfo" />
-                
-                
+
+                <Button
+                    android:id="@+id/invitebutton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Invite" 
+                    android:onClick="invite"/>
                 
             </LinearLayout>
             

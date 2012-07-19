@@ -30,7 +30,7 @@ public class Game_List extends ListActivity {
 	 int x;
 	 String[] list;
 	 ArrayAdapter<String>adapter;
-	
+	 CharSequence cs;
 	 
 	 
 	 
@@ -42,15 +42,21 @@ public class Game_List extends ListActivity {
 	    // TODO Auto-generated method stub
 	   
 	    //get username from login to check for games
+	    //username = getIntent().getStringExtra("username");
+	    
+	    
+	  
+	    
 	    username = getIntent().getStringExtra("username");
-	    Toast.makeText(getApplicationContext(), username, Toast.LENGTH_LONG).show();
+	    
+	    //Toast.makeText(getApplicationContext(), username, Toast.LENGTH_LONG).show();
 	    //max list of games
 	    list = new String[5];
 	    final ListView lv;
 	    flag = 0;
 	    x = 0;
 	    
-	    
+	    cs = (CharSequence) username;
 	    
 		 GetRowData getRowData = new GetRowData("games");
 		    
@@ -87,11 +93,10 @@ public class Game_List extends ListActivity {
 			    				
 			    				//see if the user is part of the game
 			    				
-			    				if(object.getString("players").contains("craig")){
+			    				if(object.getString("players").contains(cs)){
 			    					
 			    					flag++;
 			    					list[x] = object.getString("name");
-			    					Toast.makeText(getApplicationContext(), list[x] + " - flag: " + flag, Toast.LENGTH_LONG).show();
 			    					x++;
 			    					
 			    				}
@@ -135,6 +140,7 @@ public class Game_List extends ListActivity {
 		      
 		    lv = getListView();
 		    
+		    
 		    lv.setOnItemClickListener(new OnItemClickListener() {
 
 				@Override
@@ -149,7 +155,6 @@ public class Game_List extends ListActivity {
 					
 					
 				}
-		    	
 		    	
 		    	
 			});
