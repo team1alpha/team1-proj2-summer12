@@ -44,11 +44,11 @@ public class Profile extends Activity {
 
 	public void inprogress(View v) {
 
-		inprogressintent = new Intent(this, Game_List.class);
-		
-		inprogressintent.putExtra("username", user);
-	
-		startActivity(inprogressintent);
+//		inprogressintent = new Intent(this, Game_List.class);
+//		
+//		inprogressintent.putExtra("username", user);
+//	
+//		startActivity(inprogressintent);
 	}
 
 	public void newgame(View v) {
