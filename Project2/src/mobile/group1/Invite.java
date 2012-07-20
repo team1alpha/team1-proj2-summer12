@@ -125,7 +125,7 @@ public class Invite extends ListActivity {
 					     
 						    @Override public void mobDBSuccessResponse() {
 						    //request successfully executed
-						    	Toast.makeText(getApplicationContext(), "got players data", Toast.LENGTH_LONG).show();
+						    	
 						    }          
 						     
 						    @Override public void mobDBResponse(Vector<HashMap<String, Object[]>> result) {
@@ -207,7 +207,7 @@ public class Invite extends ListActivity {
 						     
 						    @Override public void mobDBErrorResponse(Integer errValue, String errMsg) {
 						    //request failed
-						    	Toast.makeText(getApplicationContext(), "did not get players data", Toast.LENGTH_LONG).show();
+						    	
 						    	
 						    }
 						});	

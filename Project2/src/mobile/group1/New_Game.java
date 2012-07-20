@@ -38,12 +38,13 @@ public class New_Game extends Activity {
 	String name4;
 	String name5;
 	String user;
-//	int points1;
-//	int points2;
-//	int points3;
-//	int points4;
-//	int points5;
-
+	int points1;
+	int points2;
+	int points3;
+	int points4;
+	int points5;
+	
+	ItemRecord itemrecord;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -52,15 +53,15 @@ public class New_Game extends Activity {
 		setContentView(R.layout.new_game);
 		newgametitle = (EditText) findViewById(R.id.newgameET);
 		item1name = (EditText) findViewById(R.id.item1ET);
-		//item1points = (EditText) findViewById(R.id.item1PTS);
+		item1points = (EditText) findViewById(R.id.item1PTS);
 		item2name = (EditText) findViewById(R.id.item2ET);
-		//item2points = (EditText) findViewById(R.id.item2PTS);
+		item2points = (EditText) findViewById(R.id.item2PTS);
 		item3name = (EditText) findViewById(R.id.item3ET);
-		//item3points = (EditText) findViewById(R.id.item3PTS);
+		item3points = (EditText) findViewById(R.id.item3PTS);
 		item4name = (EditText) findViewById(R.id.item4ET);
-		//item4points = (EditText) findViewById(R.id.item4PTS);
+		item4points = (EditText) findViewById(R.id.item4PTS);
 		item5name = (EditText) findViewById(R.id.item5ET);
-		//item5points = (EditText) findViewById(R.id.item5PTS);
+		item5points = (EditText) findViewById(R.id.item5PTS);
 		submit = (Button) findViewById(R.id.button2);
 		user = getIntent().getStringExtra("username");
 	
@@ -68,11 +69,15 @@ public class New_Game extends Activity {
 
 	public void submit(View v) {
 		parsetheinfotostrings();
-		//parsetheinfointointegers();
+		parsetheinfointointegers();
 
 		//submit to server
 		
-		String values = name1 + ";" + name2 + ";" + name3 + ";" + name4 + ";" + name5 + ";";
+		String values = name1 + ";" + points1 + ";" +
+						name2 + ";" + points2 + ";" +
+						name3 + ";" + points3 + ";" +
+						name4 + ";" + points4 + ";" +
+						name5 + ";" + points5 + ";";
 		
 		InsertRowData insertRowData = new InsertRowData("games");
 		insertRowData.setValue("name", gamename);
@@ -133,11 +138,11 @@ public class New_Game extends Activity {
 
 	public void parsetheinfointointegers() {
 
-//		points1 = Integer.parseInt(item1points.getText().toString());
-//		points2 = Integer.parseInt(item2points.getText().toString());
-//		points3 = Integer.parseInt(item3points.getText().toString());
-//		points4 = Integer.parseInt(item4points.getText().toString());
-//		points5 = Integer.parseInt(item5points.getText().toString());
+		points1 = Integer.parseInt(item1points.getText().toString());
+		points2 = Integer.parseInt(item2points.getText().toString());
+		points3 = Integer.parseInt(item3points.getText().toString());
+		points4 = Integer.parseInt(item4points.getText().toString());
+		points5 = Integer.parseInt(item5points.getText().toString());
 	}
 
 	public void invite(View v) {

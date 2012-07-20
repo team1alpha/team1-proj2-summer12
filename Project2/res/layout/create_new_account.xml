@@ -14,14 +14,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/username" />
-
+
         <EditText
             android:id="@+id/createUsernameText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="@string/username"
-            android:singleLine="true" />
+            android:hint="@string/username" />
 
     </TableRow>
 
@@ -35,15 +34,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/password" />
-
+
         <EditText
             android:id="@+id/createPasswordText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/password"
-            android:inputType="textPassword"
-            android:singleLine="true" >
+            android:inputType="textPassword" >
 
             <requestFocus />
         </EditText>

@@ -121,10 +121,7 @@ public class Game_List extends ListActivity {
 				    	adapter = new ArrayAdapter<String>(Game_List.this, android.R.layout.simple_list_item_1, gamelist);
 					    setListAdapter(adapter);
 				    }
-				   
-				    
-				    
-			    	
+				  
 			    	
 			    }
 			     
@@ -151,6 +148,7 @@ public class Game_List extends ListActivity {
 					Intent intent = new Intent(getApplicationContext(), Main_Game.class);
 					String game = lv.getItemAtPosition(arg2).toString();
 					intent.putExtra("name", game);
+					intent.putExtra("username", username);
 					startActivity(intent);
 					
 					

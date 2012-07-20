@@ -13,7 +13,7 @@
         android:layout_marginTop="18dp"
         android:text="@string/login"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-
+
     <EditText
         android:id="@+id/username"
         android:layout_width="wrap_content"
@@ -22,9 +22,8 @@
         android:layout_below="@+id/loginText"
         android:layout_marginTop="20dp"
         android:ems="10"
-        android:hint="@string/username"
-        android:singleLine="true" />
-
+        android:hint="@string/username" />
+
     <EditText
         android:id="@+id/passwordET"
         android:layout_width="wrap_content"
@@ -33,9 +32,8 @@
         android:layout_below="@+id/username"
         android:layout_marginTop="18dp"
         android:ems="10"
-        android:hint="@string/password"
         android:inputType="textPassword"
-        android:singleLine="true" />
+        android:hint="@string/password" />
 
     <Button
         android:id="@+id/loginButton"

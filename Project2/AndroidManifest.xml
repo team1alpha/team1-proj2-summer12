@@ -35,6 +35,7 @@
         <activity android:name="New_Game"></activity>
         <activity android:name="Game_List"></activity>
         <activity android:name="Invite"></activity>
+        <activity android:name="Player_Progress"></activity>
     </application>
 
 </manifest>

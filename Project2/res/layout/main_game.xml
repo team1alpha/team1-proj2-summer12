@@ -65,6 +65,9 @@
                 android:textAppearance="?android:attr/textAppearanceLarge" />
             
           
+             
+              
+          
             
            
 
@@ -184,8 +187,8 @@
                     android:id="@+id/moreinfoBT"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="moreinfo"
-                    android:text="@string/moreinfo" />
+                    android:onClick="delete"
+                    android:text="Delete Pic" />
 
                 <Button
                     android:id="@+id/invitebutton"
