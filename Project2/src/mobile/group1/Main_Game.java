@@ -11,9 +11,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -29,6 +27,7 @@ import com.mobdb.android.GetRowData;
 import com.mobdb.android.InsertRowData;
 import com.mobdb.android.MobDB;
 import com.mobdb.android.MobDBResponseListener;
+import com.mobdb.android.UpdateRowData;
 
 public class Main_Game extends Activity {
 
@@ -62,9 +61,11 @@ public class Main_Game extends Activity {
 	static String filename;
 	static String delete;
 	Button upload;
-	
-	
-
+	int[] score;
+	static String[] userlist;
+	static int flag;
+	static String playerscore;
+	static int oldscore;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -82,6 +83,13 @@ public class Main_Game extends Activity {
 		title = (TextView) findViewById(R.id.gameTitle);
 		user = getIntent().getStringExtra("username");
 		game = gamename;
+		
+		flag = 0;
+		
+		
+		
+		
+		
 		GetRowData getRowData = new GetRowData("games");
 		getRowData.getField("players");
 		getRowData.whereEqualsTo("name", gamename);
@@ -109,6 +117,7 @@ public class Main_Game extends Activity {
 		    		if(status == 101)
 		    		{
 		    			//get JSONArray containing all rows of game data
+		    			
 		    			JSONArray array = response.getJSONArray("row");
 		    			object = array.getJSONObject(0);
 		    			
@@ -118,19 +127,51 @@ public class Main_Game extends Activity {
 		    			
 		    			for(int i = 0; i < playerlist.length; i++)
 		    			{
-		    				if(i == 0)
-		    					player1.setText(playerlist[i]); 
-		    				else if(i == 1)
+		    				if(i == 0){
+		    					
+		    					player1.setText(playerlist[i]);
+		    					
+		    				}
+		    					 
+		    				else if(i == 1){
+		    					
 		    					player2.setText(playerlist[i]);
-		    				else if( i == 2)
+		    					
+		    				}
+		    				else if( i == 2){
 		    					player3.setText(playerlist[i]);
-		    				else if(i == 3)
+		    				}
+		    				else if(i == 3){
 		    					player4.setText(playerlist[i]);
-		    				else if(i == 4)
+		    				}
+		    				else if(i == 4){
 		    					player5.setText(playerlist[i]);
+		    				}
 		    			}
 
-		    		}	
+		    		}
+		    		
+		    		if(user.equals(player1.getText().toString())){
+		    			playerscore = "player1score";
+		    		}
+		    		else if(user.equals(player2.getText().toString())){
+		    			playerscore = "player2score";
+		    		}
+		    		else if(user.equals(player3.getText().toString())){
+		    			playerscore = "player3score";
+		    		}
+		    		else if(user.equals(player3.getText().toString())){
+		    			playerscore = "player1score";
+		    		}
+		    		else if(user.equals(player5.getText().toString())){
+		    			playerscore = "player5score";
+		    		}
+		    		else{
+		    			playerscore = "player1score";
+		    		}
+		    		
+		    		
+		    		
 		    	}
 		    	catch(JSONException e){
 		    		
@@ -151,11 +192,11 @@ public class Main_Game extends Activity {
 		
 		
 		
-		GetRowData getRowData2 = new GetRowData("games");
-		getRowData2.getField("items");
-		getRowData2.whereEqualsTo("name", gamename);
+		GetRowData getRowData3 = new GetRowData("games");
+		getRowData3.getField("items");
+		getRowData3.whereEqualsTo("name", gamename);
 		
-		MobDB.getInstance().execute(APP_KEY, getRowData2, null, false, new MobDBResponseListener() {
+		MobDB.getInstance().execute(APP_KEY, getRowData3, null, false, new MobDBResponseListener() {
 		     
 		    @Override public void mobDBSuccessResponse() {
 		    //request successfully executed
@@ -193,7 +234,7 @@ public class Main_Game extends Activity {
 		    		}	
 		    	}
 		    	catch(JSONException e){
-		    		
+		    		Toast.makeText(getApplicationContext(), "exception", Toast.LENGTH_LONG).show();
 		    	}
 
 		    	
@@ -209,6 +250,8 @@ public class Main_Game extends Activity {
 		    }
 		});	
 	    
+	
+		
 	    
 		title.setText(gamename);
 		
@@ -219,7 +262,6 @@ public class Main_Game extends Activity {
 		// application
 		picIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
-		//setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 		
 	}
 	
@@ -345,13 +387,35 @@ public class Main_Game extends Activity {
 	//Show player progress
 	public void playerClick(View v)
 	{
+		String holder = playerscore;
+		
+		if(v == player1){
+			playerscore = "player1score";
+		}
+		else if(v == player2){
+			playerscore = "player2score";
+		}
+		else if(v == player3){
+			playerscore = "player3score";
+		}
+		else if(v == player4){
+			playerscore = "player1score";
+		}
+		else if(v == player5){
+			playerscore = "player5score";
+		}
+		
 		
 		TextView text = (TextView) v.findViewById(v.getId());
 		String user = text.getText().toString();
 		Intent intent = new Intent(this, Player_Progress.class);
 		intent.putExtra("user", user);
+		intent.putExtra("playerscore", playerscore);
+		playerscore = holder;
 		intent.putExtra("name", gamename);
 		startActivity(intent);
+		
+		
 		
 	}
 	
@@ -411,6 +475,98 @@ public class Main_Game extends Activity {
 		
 		
 		
+		
+		
+		
+		GetRowData getRowData2 = new GetRowData("games");
+		getRowData2.getField(playerscore);
+		getRowData2.whereEqualsTo("name", game);
+		
+		
+		MobDB.getInstance().execute(APP_KEY, getRowData2, null, false, new MobDBResponseListener() {
+		     
+		    @Override public void mobDBSuccessResponse() {
+		    //request successfully executed
+		    	//Toast.makeText(getApplicationContext(), "got games data", Toast.LENGTH_LONG).show();
+		    }          
+		     
+		    @Override public void mobDBResponse(Vector<HashMap<String, Object[]>> result) {
+		    //row list in Vector<HashMap<String, Object[]>> object             
+		    }          
+		     
+		    @Override public void mobDBResponse(String jsonStr) {
+		    //table row list in raw JSON string (for format example: refer JSON REST API)
+		    	try{
+		    		
+		    		//check to see if we got the data from the db
+		    		JSONObject response = new JSONObject(jsonStr);
+		    		int status = response.getInt("status");
+		    		
+		    		if(status == 101)
+		    		{
+		    			//get JSONArray containing all rows of user data
+		    			
+		    			JSONArray array = response.getJSONArray("row");
+		    			JSONObject object = array.getJSONObject(0);
+		    			oldscore = object.getInt(playerscore);
+		    			Toast.makeText(getApplicationContext(), "" + oldscore, Toast.LENGTH_LONG).show();
+		    			
+
+		    			UpdateRowData updateRowData = new UpdateRowData("games");
+		    			updateRowData.setValue(playerscore,oldscore + flag);
+		    			updateRowData.whereEqualsTo("name", game);
+		    			 
+		    			MobDB.getInstance().execute(APP_KEY, updateRowData, null, false, new MobDBResponseListener() {
+		    			     
+		    			    @Override public void mobDBSuccessResponse() {
+		    			    //request successfully executed
+		    			    	
+		    			    	//Toast.makeText(getApplicationContext(), "inserted", Toast.LENGTH_LONG).show();
+		    			    }          
+		    			     
+		    			    @Override public void mobDBResponse(Vector<HashMap<String, Object[]>> result) {
+		    			    //row list in Vector<HashMap<String, Object[]>> object             
+		    			    }          
+		    			     
+		    			    @Override public void mobDBResponse(String jsonStr) {
+		    			    //table row list in raw JSON string (refer JSON REST API)
+		    			    }
+		    			     
+		    			    @Override public void mobDBFileResponse(String fileName, byte[] fileData) {
+		    			    //get file name with extension and file byte array
+		    			    }          
+		    			     
+		    			    @Override public void mobDBErrorResponse(Integer errValue, String errMsg) {
+		    			    //request failed
+		    			    	Toast.makeText(getApplicationContext(), errMsg, Toast.LENGTH_LONG).show();
+		    			    }
+		    			});
+		    			
+		    			
+		    			
+		    		}	
+		    	}
+		    	catch(JSONException e){
+		    		
+		    	}
+
+		    	
+		    }
+		     
+		    @Override public void mobDBFileResponse(String fileName, byte[] fileData) {
+		    //get file name with extension and file byte array
+		    }          
+		     
+		    @Override public void mobDBErrorResponse(Integer errValue, String errMsg) {
+		    //request failed
+		    	Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_LONG).show();
+		    }
+		});	
+		
+		
+		
+		
+		
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -443,7 +599,7 @@ public class Main_Game extends Activity {
 		picIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		picIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
 		mainimage.setImageURI(fileUri);
-		
+		flag = Integer.parseInt(itemlist[1]);
 		// image is updated by button image
 		// mainimage.setImageURI(fileUri);
 		// information of item is downloaded
@@ -459,6 +615,7 @@ public class Main_Game extends Activity {
 		picIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		picIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
 		mainimage.setImageURI(fileUri);
+		flag = Integer.parseInt(itemlist[3]);
 		// image is updated by button image
 		// mainimage.setImageURI(fileUri);
 		// information of item is downloaded
@@ -474,6 +631,7 @@ public class Main_Game extends Activity {
 		picIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		picIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
 		mainimage.setImageURI(fileUri);
+		flag = Integer.parseInt(itemlist[5]);
 		// image is updated by button image
 		// mainimage.setImageURI(fileUri);
 		// information of item is downloaded
@@ -489,6 +647,7 @@ public class Main_Game extends Activity {
 		picIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		picIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
 		mainimage.setImageURI(fileUri);
+		flag = Integer.parseInt(itemlist[7]);
 		// image is updated by button image
 		// mainimage.setImageURI(fileUri);
 		// information of item is downloaded
@@ -504,6 +663,7 @@ public class Main_Game extends Activity {
 		picIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		picIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
 		mainimage.setImageURI(fileUri);
+		flag = Integer.parseInt(itemlist[9]);
 		// image is updated by button image
 		// mainimage.setImageURI(fileUri);
 		// information of item is downloaded

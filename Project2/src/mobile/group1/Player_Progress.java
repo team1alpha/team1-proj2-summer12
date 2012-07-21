@@ -1,9 +1,10 @@
 package mobile.group1;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Vector;
+
+import mobile.group1.DB.MobDBRecord;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -54,7 +55,8 @@ public class Player_Progress extends Activity {
 	static String user;
 	static String game;
 	static String item;
-
+	static int score;
+	static String playerscore;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -65,16 +67,73 @@ public class Player_Progress extends Activity {
 		title = (TextView) findViewById(R.id.gameTitle);
 		gamename = getIntent().getStringExtra("name");
 		player1 = (TextView) findViewById(R.id.player0);
-		player1.setText(player);
 		
+		score = 0;
 		game = gamename;
 		user = player;
+		playerscore = getIntent().getStringExtra("playerscore");
+		
+		
 		
 		GetRowData getRowData2 = new GetRowData("games");
-		getRowData2.getField("items");
-		getRowData2.whereEqualsTo("name", gamename);
+		getRowData2.getField(playerscore);
+		getRowData2.whereEqualsTo("name", game);
+		
 		
 		MobDB.getInstance().execute(APP_KEY, getRowData2, null, false, new MobDBResponseListener() {
+		     
+		    @Override public void mobDBSuccessResponse() {
+		    //request successfully executed
+		    	//Toast.makeText(getApplicationContext(), "got games data", Toast.LENGTH_LONG).show();
+		    }          
+		     
+		    @Override public void mobDBResponse(Vector<HashMap<String, Object[]>> result) {
+		    //row list in Vector<HashMap<String, Object[]>> object             
+		    }          
+		     
+		    @Override public void mobDBResponse(String jsonStr) {
+		    //table row list in raw JSON string (for format example: refer JSON REST API)
+		    	try{
+		    		
+		    		//check to see if we got the data from the db
+		    		JSONObject response = new JSONObject(jsonStr);
+		    		int status = response.getInt("status");
+		    		
+		    		if(status == 101)
+		    		{
+		    			//get JSONArray containing all rows of user data
+		    			
+		    			JSONArray array = response.getJSONArray("row");
+		    			JSONObject object = array.getJSONObject(0);
+		    			score = object.getInt(playerscore);
+		    			//Toast.makeText(getApplicationContext(), user + score, Toast.LENGTH_LONG).show();
+		    			player1.setText(player + "  -  " + score);
+		    		}	
+		    	}
+		    	catch(JSONException e){
+		    		
+		    	}
+
+		    	
+		    }
+		     
+		    @Override public void mobDBFileResponse(String fileName, byte[] fileData) {
+		    //get file name with extension and file byte array
+		    }          
+		     
+		    @Override public void mobDBErrorResponse(Integer errValue, String errMsg) {
+		    //request failed
+		    	
+		    }
+		});	
+		
+		
+		
+		GetRowData getRowData3 = new GetRowData("games");
+		getRowData3.getField("items");
+		getRowData3.whereEqualsTo("name", gamename);
+		
+		MobDB.getInstance().execute(APP_KEY, getRowData3, null, false, new MobDBResponseListener() {
 		     
 		    @Override public void mobDBSuccessResponse() {
 		    //request successfully executed
@@ -127,7 +186,7 @@ public class Player_Progress extends Activity {
 		});	
 	    
 		title.setText(gamename);
-		
+		player1.setText(player + "  -  " + score);
 		itemname = (TextView) findViewById(R.id.itemName);
 		itemscore = (TextView) findViewById(R.id.pointsworth);
 		mainimage = (ImageView) findViewById(R.id.mainImage);
@@ -154,9 +213,14 @@ public class Player_Progress extends Activity {
 		
 		fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE); 
 		
-		Toast.makeText(getApplicationContext(), fileUri.toString(), Toast.LENGTH_LONG).show();
+		//Toast.makeText(getApplicationContext(), fileUri.toString(), Toast.LENGTH_LONG).show();
 		
-		GetFile getFile = new GetFile("GET file=" + fileUri.toString());
+		
+		
+		
+		
+		
+		GetFile getFile = new GetFile("GET file=17");
 		
 		 
 		MobDB.getInstance().execute(APP_KEY, getFile, null, false, new MobDBResponseListener() {
@@ -184,8 +248,12 @@ public class Player_Progress extends Activity {
 		    		if(status != 101){
 		    			
 		    			Toast.makeText(getApplicationContext(), "got it", Toast.LENGTH_LONG).show();
+		    			JSONArray array = response.getJSONArray("row");
+		    			JSONObject object = array.getJSONObject(0);
 		    			
+		    			String file = object.getString("image");
 		    			
+		    			mainimage.setImageURI(fileUri);
 		    			
 		    		}
 		    		
@@ -209,7 +277,7 @@ public class Player_Progress extends Activity {
 		
 		
 		
-		mainimage.setImageURI(fileUri);
+		//mainimage.setImageURI(fileUri);
 		
 		
 		
@@ -229,7 +297,7 @@ public class Player_Progress extends Activity {
 		
 		fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE); 
 		
-		Toast.makeText(getApplicationContext(), fileUri.toString(), Toast.LENGTH_LONG).show();
+		//Toast.makeText(getApplicationContext(), fileUri.toString(), Toast.LENGTH_LONG).show();
 		
 		GetFile getFile = new GetFile("GET file=" + fileUri.toString());
 		
@@ -285,17 +353,7 @@ public class Player_Progress extends Activity {
 		
 		
 		mainimage.setImageURI(fileUri);
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+	
 		// image is updated by button image
 		// mainimage.setImageURI(fileUri);
 		// information of item is downloaded
@@ -310,7 +368,7 @@ public class Player_Progress extends Activity {
 		
 		fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE); 
 		
-		Toast.makeText(getApplicationContext(), fileUri.toString(), Toast.LENGTH_LONG).show();
+		//Toast.makeText(getApplicationContext(), fileUri.toString(), Toast.LENGTH_LONG).show();
 		
 		GetFile getFile = new GetFile("GET file=" + fileUri.toString());
 		
@@ -381,7 +439,7 @@ public class Player_Progress extends Activity {
 		
 		fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE); 
 		
-		Toast.makeText(getApplicationContext(), fileUri.toString(), Toast.LENGTH_LONG).show();
+		//Toast.makeText(getApplicationContext(), fileUri.toString(), Toast.LENGTH_LONG).show();
 		
 		GetFile getFile = new GetFile("GET file=" + fileUri.toString());
 		
@@ -452,7 +510,7 @@ public class Player_Progress extends Activity {
 		
 		fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE); 
 		
-		Toast.makeText(getApplicationContext(), fileUri.toString(), Toast.LENGTH_LONG).show();
+		//Toast.makeText(getApplicationContext(), fileUri.toString(), Toast.LENGTH_LONG).show();
 		
 		GetFile getFile = new GetFile("GET file=" + fileUri.toString());
 		
